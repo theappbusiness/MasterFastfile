@@ -18,10 +18,8 @@ default_platform :ios
   end
 
   def setupScan()
-  puts ENV['GYM_SCHEME']
     ENV['SCAN_SCHEME'] = ENV['GYM_SCHEME']
     ENV['SCAN_DEVICE'] = "iPhone 6 (9.2)"
-    puts "in setup scan"
   end
 
   after_all do |lane|
