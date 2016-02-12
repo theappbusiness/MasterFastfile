@@ -21,7 +21,6 @@ default_platform :ios
     ENV['SCAN_SCHEME'] = ENV['GYM_SCHEME']
     ENV['SCAN_DEVICE'] = "iPhone 6 (9.2)"
     puts "in setup scan"
-    puts ENV['SCAN_SCHEME']
   end
 
   after_all do |lane|
