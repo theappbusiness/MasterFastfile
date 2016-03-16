@@ -13,8 +13,11 @@ default_platform :ios
   lane :hockey do
     setup()
     scan
+    increment_build_number
     gym(use_legacy_build_api: true)
     hockey
+    commit_version_bump
+    push_to_git_remote
   end
 
   def setup()
