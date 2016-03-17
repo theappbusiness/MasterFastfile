@@ -13,8 +13,7 @@ default_platform :ios
   lane :hockey do
     setup()
     scan
-    version_number = get_version_number
-    icon_overlay(version: version_number)
+    icon_overlay(version: get_version_number)
     setBuildNumber()
     gym(use_legacy_build_api: true)
     hockey
@@ -39,10 +38,10 @@ default_platform :ios
 
   def setBuildNumber()
     build_number = "0"
-    use_timestamp = ENV['TAB_USE_TIME_FOR_BUILD'] || false
+    use_timestamp = ENV['TAB_USE_TIME_FOR_BUILD_NUMBER'] || false
     if use_timestamp
       time = Time.new
-      build_number = "#{time.day}#{time.month}#{time.year}#{time.hour}#{time.min}#{time.sec}"
+      build_number = "#{time.year}#{time.month}#{time.day}#{time.hour}#{time.min}#{time.sec}"
     else
       build_number = ENV['BUILD_NUMBER']
     end
