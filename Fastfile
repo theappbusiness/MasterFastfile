@@ -15,6 +15,7 @@ default_platform :ios
     scan
     version_number = get_version_number
     icon_overlay(version: version_number)
+    setBuildNumber()
     gym(use_legacy_build_api: true)
     hockey
   end
@@ -23,6 +24,7 @@ default_platform :ios
     setup()
     version_number = get_version_number
     icon_overlay(version: version_number)
+    setBuildNumber()
     gym(use_legacy_build_api: true)
     hockey
   end
@@ -33,6 +35,18 @@ default_platform :ios
     if is_ci
       xcode_select(ENV['XCODE_PATH'])
     end
+  end
+
+  def setBuildNumber()
+    build_number = "0"
+    use_timestamp = ENV['TAB_USE_TIME_FOR_BUILD'] || false
+    if use_timestamp
+      time = Time.new
+      build_number = "#{time.day}#{time.month}#{time.year}#{time.hour}#{time.min}#{time.sec}"
+    else
+      build_number = ENV['BUILD_NUMBER']
+    end
+    increment_build_number(build_number: build_number)
   end
 
   after_all do |lane|
