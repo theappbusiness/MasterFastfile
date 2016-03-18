@@ -14,18 +14,18 @@ default_platform :ios
     setup()
     scan
     icon_overlay(version: get_version_number)
-    setBuildNumber()
+    set_build_number()
     gym(use_legacy_build_api: true)
-    hockey
+    hockey(notes_type: "0", notes: create_change_log())
   end
 
   lane :hockey_no_test do
     setup()
     version_number = get_version_number
     icon_overlay(version: version_number)
-    setBuildNumber()
+    set_build_number()
     gym(use_legacy_build_api: true)
-    hockey
+    hockey(notes_type: "0", notes: create_change_log())
   end
 
   def setup()
@@ -36,7 +36,7 @@ default_platform :ios
     end
   end
 
-  def setBuildNumber()
+  def set_build_number()
     build_number = "0"
     use_timestamp = ENV['TAB_USE_TIME_FOR_BUILD_NUMBER'] || false
     if use_timestamp
@@ -46,6 +46,12 @@ default_platform :ios
       build_number = ENV['BUILD_NUMBER']
     end
     increment_build_number(build_number: build_number)
+  end
+
+  def create_change_log()
+    cmd = "git log --after={1.day.ago} --pretty=format:'%an%x09%h%x09%cd%x09%s' --date=relative"
+    output = `#{cmd}`
+    return (output.length == 0) ? "No Changes" : output
   end
 
   after_all do |lane|

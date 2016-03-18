@@ -32,8 +32,8 @@ module Fastlane
         version = ENV['ICON_OVERLAY_APP_VERSION']
         commit = `git rev-parse HEAD | head -1`.strip
         time = Time.new
-
-        ["#{version} #{@overlay_id}",
+        scheme = ENV['GYM_SCHEME'] || "scheme"
+        ["#{version} #{scheme}",
          "#{time.day}/#{time.month} #{time.hour}:#{time.min}",
          "#{commit[0..7]}"
         ].join("\n")
