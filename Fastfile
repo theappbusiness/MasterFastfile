@@ -15,6 +15,7 @@ default_platform :ios
     scan
     icon_overlay(version: get_version_number)
     set_build_number()
+    update_info_plist
     gym(use_legacy_build_api: true)
     hockey(notes_type: "0", notes: create_change_log())
   end
@@ -24,6 +25,7 @@ default_platform :ios
     version_number = get_version_number
     icon_overlay(version: version_number)
     set_build_number()
+    update_info_plist
     gym(use_legacy_build_api: true)
     hockey(notes_type: "0", notes: create_change_log())
   end
