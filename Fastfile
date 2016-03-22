@@ -40,8 +40,7 @@ default_platform :ios
     build_number = "0"
     use_timestamp = ENV['TAB_USE_TIME_FOR_BUILD_NUMBER'] || false
     if use_timestamp
-      time = Time.new
-      build_number = "#{time.year}#{time.month}#{time.day}#{time.hour}#{time.min}#{time.sec}"
+      build_number = Time.now.strftime("%y%m%d%H%M")
     else
       build_number = ENV['BUILD_NUMBER']
     end
