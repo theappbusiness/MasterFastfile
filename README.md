@@ -1,3 +1,5 @@
+![The App Business](https://github.com/theappbusiness/MasterFastfile/blob/master/MasterFastfile.png)
+
 # MasterFastfile
  To setup your project to use the TAB master fastfile navigate to your project route and run the following command
 
