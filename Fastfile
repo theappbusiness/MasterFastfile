@@ -13,17 +13,16 @@ default_platform :ios
   lane :hockey do
     setup()
     scan
-    icon_overlay(version: get_version_number)
-    set_build_number()
-    update_info_plist
-    gym(use_legacy_build_api: true)
-    hockey(notes_type: "0", notes: create_change_log())
+    deploy_hockey()
   end
 
   lane :hockey_no_test do
     setup()
-    version_number = get_version_number
-    icon_overlay(version: version_number)
+    deploy_hockey()
+  end
+
+  def deploy_hockey()
+    icon_overlay(version: get_version_number)
     set_build_number()
     update_info_plist
     gym(use_legacy_build_api: true)
