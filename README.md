@@ -32,3 +32,16 @@ Then setup your environments using the `.env` files created for you. To complete
   * Adds overlay to app icon containing build information
 
 For more detailed information on how to setup your project and environment please see our [wiki](https://github.com/theappbusiness/MasterFastfile/wiki)
+
+## Dependencies
+
+### Imagemagick
+Install using brew
+```
+$ brew install imagemagick
+```
+### Ghostscript
+Install using brew
+```
+$ brew install ghostscript
+```
