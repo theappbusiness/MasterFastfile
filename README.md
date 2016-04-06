@@ -4,7 +4,7 @@
  To setup your project to use the TAB master fastfile navigate to your project route and run the following command
 
  ```
-$ curl https://raw.githubusercontent.com/theappbusiness/MasterFastfile/master/setup.sh | sh
+curl https://raw.githubusercontent.com/theappbusiness/MasterFastfile/master/setup.sh | sh
 ```
 
 Then setup your environments using the `.env` files created for you. To complete the setup just add the missing variable values.
@@ -38,10 +38,10 @@ For more detailed information on how to setup your project and environment pleas
 ### Imagemagick
 Install using brew
 ```
-$ brew install imagemagick
+brew install imagemagick
 ```
 ### Ghostscript
 Install using brew
 ```
-$ brew install ghostscript
+brew install ghostscript
 ```

@@ -7,6 +7,7 @@ echo "fastlane_version \"1.55.0\"
 import_from_git(url: 'git@bitbucket.org:theappbusiness/tabfastlanemaster-ios.git', path: 'Fastfile')" > Fastfile
 echo "#This is your default environment file
 #Set environment variables used in all builds here
+#More information on available environment variables can be found here https://github.com/theappbusiness/MasterFastfile/wiki/Quick-simple-setup-using-TAB-defaults
 FL_HOCKEY_API_TOKEN="" #Hocky API Token
 FL_HOCKEY_OWNER_ID="" #Hockey Organisation ID (number not name)
 FL_UPDATE_PLIST_PATH="" #Path to Info.plist
