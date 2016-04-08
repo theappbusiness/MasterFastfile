@@ -4,7 +4,7 @@ mkdir fastlane
 cd fastlane
 echo "app_identifier = ENV['FL_UPDATE_PLIST_APP_IDENTIFIER']" > Appfile
 echo "fastlane_version \"1.55.0\"
-import_from_git(url: 'git@bitbucket.org:theappbusiness/tabfastlanemaster-ios.git', path: 'Fastfile')" > Fastfile
+import_from_git(url: 'https://github.com/theappbusiness/MasterFastfile.git', path: 'Fastfile')" > Fastfile
 echo "#This is your default environment file
 #Set environment variables used in all builds here
 #More information on available environment variables can be found here https://github.com/theappbusiness/MasterFastfile/wiki/Quick-simple-setup-using-TAB-defaults
