@@ -32,7 +32,7 @@ default_platform :ios
   def setup()
     ENV['SCAN_SCHEME'] = ENV['GYM_SCHEME']
     ENV['SCAN_DEVICE'] = "iPhone 6 (9.2)"
-    if is_ci
+    if is_ci && ENV['XCODE_PATH'] != nil
       xcode_select(ENV['XCODE_PATH'])
     end
   end
