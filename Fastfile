@@ -35,9 +35,9 @@ default_platform :ios
   def setup()
     reset_git_repo
     ENV['SCAN_SCHEME'] = ENV['GYM_SCHEME']
-    if ENV['SCAN_DEVICE'] == nil {
+    if ENV['SCAN_DEVICE'] == nil
       ENV['SCAN_DEVICE'] = "iPhone 6 (9.3)"
-    }
+    end
     if is_ci && ENV['XCODE_PATH'] != nil
       xcode_select(ENV['XCODE_PATH'])
     end
