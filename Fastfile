@@ -27,7 +27,7 @@ default_platform :ios
     update_info_plist
     gym(use_legacy_build_api: true)
     custom_notes = ENV['CUSTOM_HOCKEY_RELEASE_NOTES'] || ""
-    notes =  custom_notes == "" ? custom_notes : create_change_log()
+    notes =  custom_notes == "" create_change_log() : custom_notes
     hockey(notes_type: "0", notes: notes)
 
   end
