@@ -15,6 +15,11 @@ module Fastlane
 
     class IconOverlayAction < Action
       def self.run(params)
+        if not (ENV['ICON_OVERLAY_SOURCE_PATH'] || ENV['ICON_OVERLAY_ASSETS_BUNDLE'])
+          puts "Skipping icon overlay"
+          return
+        end
+        
         # fastlane will take care of reading in the parameter and fetching the environment variable:
         ENV['ICON_OVERLAY_APP_VERSION'] = "#{params[:version]}"
         overlay()
