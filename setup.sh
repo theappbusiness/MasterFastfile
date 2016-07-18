@@ -5,13 +5,8 @@ cd fastlane
 echo "app_identifier = ENV['FL_UPDATE_PLIST_APP_IDENTIFIER']" > Appfile
 echo "fastlane_version \"1.55.0\"
 import_from_git(url: 'https://github.com/theappbusiness/MasterFastfile.git', path: 'Fastfile')" > Fastfile
-make_default_env_file()
-make_custom_env_file("test")
-make_custom_env_file("uat")
-make_custom_env_file("staging")
-make_custom_env_file("prod")
 
-function make_default_env_file() {
+function make_default_env_file {
   cat > .env.default <<EOF
 #This is your default environment file
 #Set environment variables used in all builds here
@@ -27,8 +22,8 @@ TAB_USE_TIME_FOR_BUILD_NUMBER= #Use Time and date for build number or BUILD_NUMB
 EOF
 }
 
-function make_custom_env_file() {
-  env=$0
+function make_custom_env_file {
+  env=$1
   cat > .env.$env <<EOF
 #This is your ${env} environment file
 #Set environment variables used in ${env} builds here
@@ -37,3 +32,9 @@ FL_UPDATE_PLIST_APP_IDENTIFIER="" #App Bundle Identifier
 FL_UPDATE_PLIST_DISPLAY_NAME="" #Display name of app
 EOF
 }
+
+make_default_env_file
+make_custom_env_file "test"
+make_custom_env_file "uat"
+make_custom_env_file "staging"
+make_custom_env_file "prod"
