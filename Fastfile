@@ -25,11 +25,25 @@ default_platform :ios
     icon_overlay(version: get_version_number)
     set_build_number()
     update_info_plist
-    gym(use_legacy_build_api: true)
-    custom_notes = ENV['CUSTOM_HOCKEY_RELEASE_NOTES'] || ""
+    build_with_gym()
+    upload_to_hockey()
+  end
+
+  def build_with_gym()
+    provisioning_profile_name = ENV['TAB_PROVISIONING_PROFILE']
+    if provisioning_profile_name != nil
+      xcconfig_filename = "./fastlane/TAB.release.xcconfig"
+      File.open(xcconfig_filename, 'w') { |file| file.write("PROVISIONING_PROFILE_SPECIFIER = #{provisioning_profile_name}") }
+      gym(use_legacy_build_api: true, xcconfig: xcconfig_filename)
+    else
+      gym(use_legacy_build_api: true)
+    end
+  end
+
+  def upload_to_hockey()
+    custom_notes = ENV['TAB_HOCKEY_RELEASE_NOTES'] || ""
     notes = custom_notes == "" ? create_change_log() : custom_notes
     hockey(notes_type: "0", notes: notes)
-
   end
 
   def setup()
@@ -37,8 +51,8 @@ default_platform :ios
     if ENV['SCAN_DEVICE'] == nil
       ENV['SCAN_DEVICE'] = "iPhone 6 (9.3)"
     end
-    if is_ci && ENV['XCODE_PATH'] != nil
-      xcode_select(ENV['XCODE_PATH'])
+    if is_ci && ENV['TAB_XCODE_PATH'] != nil
+      xcode_select(ENV['TAB_XCODE_PATH'])
     end
   end
 
