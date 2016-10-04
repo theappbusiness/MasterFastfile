@@ -33,7 +33,7 @@ default_platform :ios
     provisioning_profile_name = ENV['TAB_PROVISIONING_PROFILE']
     if provisioning_profile_name != nil
       xcconfig_filename = "./fastlane/TAB.release.xcconfig"
-      File.open(xcconfig_filename, 'w') { |file| file.write("PROVISIONING_PROFILE_SPECIFIER = #{provisioning_profile_name}") }
+      File.write(xcconfig_filename, "PROVISIONING_PROFILE_SPECIFIER = #{provisioning_profile_name}\n")
       gym(use_legacy_build_api: true, xcconfig: xcconfig_filename)
     else
       gym(use_legacy_build_api: true)
