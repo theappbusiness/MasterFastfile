@@ -32,7 +32,7 @@ default_platform :ios
   def build_with_gym()
     provisioning_profile_name = ENV['TAB_PROVISIONING_PROFILE']
     if provisioning_profile_name != nil
-      xcconfig_filename = "./fastlane/TAB.release.xcconfig"
+      xcconfig_filename = Dir.pwd + "/fastlane/TAB.release.xcconfig"
       File.write(xcconfig_filename, "PROVISIONING_PROFILE_SPECIFIER = #{provisioning_profile_name}\n")
       gym(use_legacy_build_api: true, xcconfig: xcconfig_filename)
     else
