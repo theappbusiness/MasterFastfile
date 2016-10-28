@@ -3,11 +3,16 @@ fastlane_version "1.55.0"
 default_platform :ios
 
   before_all do
+    if ENV['SLACK_URL'] == nil
+      ENV['SLACK_URL'] = ENV['TAB_SLACK_WEBHOOK_URL']
+    end
   end
+
 
   lane :test do
     setup()
-    scan
+    skip_slack = ENV['SCAN_SLACK_CHANNEL'] == nil
+    scan(skip_slack: skip_slack)
   end
 
   lane :hockey do
@@ -27,6 +32,7 @@ default_platform :ios
     update_info_plist
     build_with_gym()
     upload_to_hockey()
+    notifiy_slack_of_hockey_upload()
   end
 
   def build_with_gym()
@@ -44,6 +50,17 @@ default_platform :ios
     custom_notes = ENV['TAB_HOCKEY_RELEASE_NOTES'] || ""
     notes = custom_notes == "" ? create_change_log() : custom_notes
     hockey(notes_type: "0", notes: notes)
+  end
+
+  def notifiy_slack_of_hockey_upload
+    if ENV['FL_SLACK_CHANNEL'] == nil
+      return
+    end
+    hockey_download_url = lane_context[SharedValues::HOCKEY_DOWNLOAD_LINK]
+    if hockey_download_url != nil
+      new_build_message = "A new build is available on <" + hockey_download_url + "|hockey>"
+      slack(message: new_build_message)
+    end
   end
 
   def setup()
