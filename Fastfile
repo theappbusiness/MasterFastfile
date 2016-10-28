@@ -32,7 +32,6 @@ default_platform :ios
     update_info_plist
     build_with_gym()
     upload_to_hockey()
-    notifiy_slack_of_hockey_upload()
   end
 
   def build_with_gym()
@@ -52,7 +51,7 @@ default_platform :ios
     hockey(notes_type: "0", notes: notes)
   end
 
-  def notifiy_slack_of_hockey_upload
+  def notifiy_slack()
     if ENV['FL_SLACK_CHANNEL'] == nil
       return
     end
@@ -60,6 +59,8 @@ default_platform :ios
     if hockey_download_url != nil
       new_build_message = "A new build is available on <" + hockey_download_url + "|hockey>"
       slack(message: new_build_message)
+    else
+      slack()
     end
   end
 
@@ -91,6 +92,7 @@ default_platform :ios
   end
 
   after_all do |lane|
+    notifiy_slack()
   end
 
   error do |lane, exception|
