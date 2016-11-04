@@ -3,6 +3,12 @@ fastlane_version "1.55.0"
 default_platform :ios
 
   before_all do
+    if ENV['TAB_PROVISIONING_PROFILE_PATH'] != nil
+      path = ENV['TAB_PROVISIONING_PROFILE_PATH']
+      uuid = `grep UUID -A1 -a #{path} | grep -io \"[-A-Z0-9]\\{36\\}\"`
+      destination = "#{ENV['HOME']}/Library/MobileDevice/Provisioning\\\ Profiles/#{uuid.strip}.mobileprovision"
+      `cp #{path} #{destination}`
+    end
   end
 
   lane :test do
