@@ -4,9 +4,18 @@ default_platform :ios
 
   before_all do
     if ENV['TAB_PROVISIONING_PROFILE_PATH'] != nil
+      puts "TAB_PROVISIONING_PROFILE_PATH added"
+      current_dir = `pwd`
+      puts current_dir
       path = ENV['TAB_PROVISIONING_PROFILE_PATH']
+      puts path
+      path = path.gsub("fastlane/", "")
+      puts path
+
       uuid = `grep UUID -A1 -a #{path} | grep -io \"[-A-Z0-9]\\{36\\}\"`
+      puts uuid
       destination = "#{ENV['HOME']}/Library/MobileDevice/Provisioning\\\ Profiles/#{uuid.strip}.mobileprovision"
+      puts destination
       `cp #{path} #{destination}`
     end
   end
