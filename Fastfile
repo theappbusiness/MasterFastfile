@@ -4,19 +4,10 @@ default_platform :ios
 
   before_all do
     if ENV['TAB_PROVISIONING_PROFILE_PATH'] != nil
-      puts "TAB_PROVISIONING_PROFILE_PATH added"
-      current_dir = `pwd`
-      puts current_dir
-      path = ENV['TAB_PROVISIONING_PROFILE_PATH']
-      puts path
-      path="../#{ENV['TAB_PROVISIONING_PROFILE_PATH']}" # needed because fastlane runs in the fastlane directory
-      puts path
-
-      uuid = `grep UUID -A1 -a #{path} | grep -io \"[-A-Z0-9]\\{36\\}\"`
-      puts uuid
-      destination = "#{ENV['HOME']}/Library/MobileDevice/Provisioning\\\ Profiles/#{uuid.strip}.mobileprovision"
-      puts destination
-      `cp #{path} #{destination}`
+      provisioning_profile_path="../#{ENV['TAB_PROVISIONING_PROFILE_PATH']}" # needed because fastlane runs in the fastlane directory
+      provisioning_profile_uuid = `grep UUID -A1 -a #{provisioning_profile_path} | grep -io \"[-A-Z0-9]\\{36\\}\"`
+      provisioning_profile_destination = "#{ENV['HOME']}/Library/MobileDevice/Provisioning\\\ Profiles/#{provisioning_profile_uuid.strip}.mobileprovision"
+      `cp #{provisioning_profile_path} #{provisioning_profile_destination}`
     end
   end
 
