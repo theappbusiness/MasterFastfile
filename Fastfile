@@ -9,7 +9,7 @@ default_platform :ios
       puts current_dir
       path = ENV['TAB_PROVISIONING_PROFILE_PATH']
       puts path
-      path = path.gsub("fastlane/", "")
+      path="../#{ENV['TAB_PROVISIONING_PROFILE_PATH']}" # needed because fastlane runs in the fastlane directory
       puts path
 
       uuid = `grep UUID -A1 -a #{path} | grep -io \"[-A-Z0-9]\\{36\\}\"`
