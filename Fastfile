@@ -2,15 +2,6 @@ fastlane_version "1.55.0"
 
 default_platform :ios
 
-  before_all do
-    if ENV['TAB_PROVISIONING_PROFILE_PATH'] != nil
-      provisioning_profile_path="../#{ENV['TAB_PROVISIONING_PROFILE_PATH']}" # needed because fastlane runs in the fastlane directory
-      provisioning_profile_uuid = `grep UUID -A1 -a #{provisioning_profile_path} | grep -io \"[-A-Z0-9]\\{36\\}\"`
-      provisioning_profile_destination = "#{ENV['HOME']}/Library/MobileDevice/Provisioning\\\ Profiles/#{provisioning_profile_uuid.strip}.mobileprovision"
-      `cp #{provisioning_profile_path} #{provisioning_profile_destination}`
-    end
-  end
-
   lane :test do
     setup()
     scan
@@ -36,6 +27,7 @@ default_platform :ios
   end
 
   def build_with_gym()
+    install_provisioning_profile()
     provisioning_profile_name = ENV['TAB_PROVISIONING_PROFILE']
     if provisioning_profile_name != nil
       xcconfig_filename = Dir.pwd + "/TAB.release.xcconfig"
@@ -43,6 +35,15 @@ default_platform :ios
       gym(use_legacy_build_api: true, xcconfig: xcconfig_filename)
     else
       gym(use_legacy_build_api: true)
+    end
+  end
+
+  def install_provisioning_profile()
+    if ENV['TAB_PROVISIONING_PROFILE_PATH'] != nil
+      provisioning_profile_path="../#{ENV['TAB_PROVISIONING_PROFILE_PATH']}" # needed because fastlane runs in the fastlane directory
+      provisioning_profile_uuid = `grep UUID -A1 -a #{provisioning_profile_path} | grep -io \"[-A-Z0-9]\\{36\\}\"`
+      provisioning_profile_destination = "#{ENV['HOME']}/Library/MobileDevice/Provisioning\\\ Profiles/#{provisioning_profile_uuid.strip}.mobileprovision"
+      `cp #{provisioning_profile_path} #{provisioning_profile_destination}`
     end
   end
 
