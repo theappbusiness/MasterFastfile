@@ -18,7 +18,7 @@ module Fastlane
           `cp #{provisioning_profile_path} #{provisioning_profile_destination}`
           UI.success("Installed profile at path #{params[:provisioning_profile_path]} succesfully")
         else 
-          UI.message "Parameter API Token: #{params[:provisioning_profile_path]}"
+          UI.error("Could not find provisioning path at path #{params[:provisioning_profile_path]}")
         end
       end
 
