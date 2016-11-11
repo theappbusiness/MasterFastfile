@@ -13,7 +13,7 @@ module Fastlane
           `cp #{provisioning_profile_path} #{provisioning_profile_destination}`
           UI.success("Installed profile at path #{params[:provisioning_profile_path]} succesfully")
         else 
-          UI.user_error! "TAB_PROVISIONING_PROFILE_PATH not defined"
+          UI.message("Skipping installing provisioning profile since TAB_PROVISIONING_PROFILE_PATH is not defined")
         end
       end
 
