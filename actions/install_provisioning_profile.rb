@@ -18,7 +18,8 @@ module Fastlane
           `cp #{provisioning_profile_path} #{provisioning_profile_destination}`
           UI.success("Installed profile at path #{params[:provisioning_profile_path]} succesfully")
         else 
-          UI.error("Could not find provisioning path at path #{params[:provisioning_profile_path]}")
+          UI.error("TAB_PROVISIONING_PROFILE_PATH not provided")
+          UI.user_error! "Provide TAB_PROVISIONING_PROFILE_PATH"
         end
       end
 
