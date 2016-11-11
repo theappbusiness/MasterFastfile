@@ -7,7 +7,7 @@ module Fastlane
     class InstallProvisioningProfileAction < Action
       def self.run(params)
         # fastlane will take care of reading in the parameter and fetching the environment variable:
-        UI.message "Parameter API Token: #{params[:api_token]}"
+        # UI.message "Parameter API Token: #{params[:api_token]}"
         if ENV['TAB_PROVISIONING_PROFILE_PATH'] != nil
           provisioning_profile_path="../#{ENV['TAB_PROVISIONING_PROFILE_PATH']}" # needed because fastlane runs in the fastlane directory
           provisioning_profile_uuid = `grep UUID -A1 -a #{provisioning_profile_path} | grep -io \"[-A-Z0-9]\\{36\\}\"`
@@ -29,7 +29,6 @@ module Fastlane
           FastlaneCore::ConfigItem.new(key: :development,
                                        env_name: "TAB_PROVISIONING_PROFILE_PATH",
                                        description: "The path of the provisioning profile to install",
-                                       is_optional: false,
                                        is_string: false, # true: verifies the input is a string, false: every kind of value
                                        default_value: false) # the default value if the user didn't provide one
         ]
