@@ -9,7 +9,9 @@ module Fastlane
         # fastlane will take care of reading in the parameter and fetching the environment variable:
         # I.message "Parameter API Token: #{params[:api_token]}
         if ENV['TAB_PROVISIONING_PROFILE_PATH'] != nil
-          `pwd`
+          variable = `pwd`
+          puts `pwd`
+          puts variable
           provisioning_profile_path="../#{ENV['TAB_PROVISIONING_PROFILE_PATH']}" # needed because fastlane runs in the fastlane directory
           provisioning_profile_uuid = `grep UUID -A1 -a #{provisioning_profile_path} | grep -io \"[-A-Z0-9]\\{36\\}\"`
           provisioning_profile_destination = "#{ENV['HOME']}/Library/MobileDevice/Provisioning\\\ Profiles/#{provisioning_profile_uuid.strip}.mobileprovision"
