@@ -30,6 +30,7 @@ default_platform :ios
   end
 
   def build_with_gym()
+    install_provisioning_profile
     provisioning_profile_name = ENV['TAB_PROVISIONING_PROFILE']
     if provisioning_profile_name != nil
       xcconfig_filename = Dir.pwd + "/TAB.release.xcconfig"
