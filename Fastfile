@@ -24,6 +24,9 @@ default_platform :ios
   def deploy_hockey()
     icon_overlay(version: get_version_number)
     set_build_number()
+    update_app_identifier(xcodeproj: ENV['FL_UPDATE_PLIST_PROJECT_PATH'],
+                         plist_path: ENV['FL_UPDATE_PLIST_PATH'],
+                     app_identifier: ENV['FL_UPDATE_PLIST_APP_IDENTIFIER'] )
     update_info_plist
     build_with_gym()
     upload_to_hockey()
