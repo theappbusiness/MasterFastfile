@@ -21,7 +21,10 @@ default_platform :ios
     deploy_hockey()
   end
 
-  lane :local_build do
+  lane :local_build do |options|
+      if options[:icon_overlay]
+        icon_overlay(version: get_version_number)
+      end
       build_ipa()
   end
 
@@ -33,6 +36,12 @@ default_platform :ios
   end
 
   def build_ipa()
+    update_app_identifier(xcodeproj: ENV['FL_UPDATE_PLIST_PROJECT_PATH'],
+                         plist_path: ENV['FL_UPDATE_PLIST_PATH'],
+                     app_identifier: ENV['FL_UPDATE_PLIST_APP_IDENTIFIER'] )
+    update_info_plist
+    build_with_gym()
+end
       update_app_identifier(xcodeproj: ENV['FL_UPDATE_PLIST_PROJECT_PATH'],
                            plist_path: ENV['FL_UPDATE_PLIST_PATH'],
                        app_identifier: ENV['FL_UPDATE_PLIST_APP_IDENTIFIER'] )

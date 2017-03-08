@@ -3,7 +3,7 @@
 # MasterFastfile
  To setup your project to use the TAB master fastfile navigate to your project route and run the following command
 
- ```
+```
 curl https://raw.githubusercontent.com/theappbusiness/MasterFastfile/master/setup.sh | sh
 ```
 
@@ -26,6 +26,9 @@ Then setup your environments using the `.env` files created for you. To complete
     * builds and archives project
     * generates changelog from git commits
     * uploads app to hockey
+* local_build
+	  * optionally adds icon overlay: e.g. `fastlane local_build icon_overlay:true`
+	  * builds an ipa
 
 ## Custom Actions
 * icon_overlay
