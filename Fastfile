@@ -41,12 +41,6 @@ default_platform :ios
                      app_identifier: ENV['FL_UPDATE_PLIST_APP_IDENTIFIER'] )
     update_info_plist
     build_with_gym()
-end
-      update_app_identifier(xcodeproj: ENV['FL_UPDATE_PLIST_PROJECT_PATH'],
-                           plist_path: ENV['FL_UPDATE_PLIST_PATH'],
-                       app_identifier: ENV['FL_UPDATE_PLIST_APP_IDENTIFIER'] )
-      update_info_plist
-      build_with_gym()
   end
 
   def build_with_gym()
