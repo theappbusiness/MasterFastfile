@@ -51,7 +51,7 @@ default_platform :ios
     hockey(notes_type: "0", notes: notes)
   end
 
-  def notfiy_slack()
+  def notify_slack()
     if ENV['FL_SLACK_CHANNEL'].to_s.strip.empty?
       return
     end
@@ -92,7 +92,7 @@ default_platform :ios
   end
 
   after_all do |lane|
-    notfiy_slack()
+    notify_slack()
   end
 
   error do |lane, exception|
