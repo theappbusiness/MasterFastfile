@@ -11,7 +11,7 @@ default_platform :ios
 
   lane :test do
     setup()
-    skip_slack = ENV['SCAN_SLACK_CHANNEL'] == "" || ENV['SCAN_SLACK_CHANNEL'] == nil
+    skip_slack = ENV['SCAN_SLACK_CHANNEL'].to_s.strip.empty?
     scan(skip_slack: skip_slack)
   end
 
@@ -51,8 +51,8 @@ default_platform :ios
     hockey(notes_type: "0", notes: notes)
   end
 
-  def notifiy_slack()
-    if ENV['FL_SLACK_CHANNEL'] == nil || ENV['FL_SLACK_CHANNEL'] == ""
+  def notfiy_slack()
+    if ENV['FL_SLACK_CHANNEL'].to_s.strip.empty?
       return
     end
     hockey_download_url = lane_context[SharedValues::HOCKEY_DOWNLOAD_LINK]
@@ -92,7 +92,7 @@ default_platform :ios
   end
 
   after_all do |lane|
-    notifiy_slack()
+    notfiy_slack()
   end
 
   error do |lane, exception|
