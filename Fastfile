@@ -3,11 +3,16 @@ fastlane_version "1.55.0"
 default_platform :ios
 
   before_all do
+    if ENV['SLACK_URL'] == nil
+      ENV['SLACK_URL'] = ENV['TAB_SLACK_WEBHOOK_URL']
+    end
   end
+
 
   lane :test do
     setup()
-    scan
+    skip_slack = ENV['SCAN_SLACK_CHANNEL'].to_s.strip.empty?
+    scan(skip_slack: skip_slack)
   end
 
   lane :hockey do
@@ -61,6 +66,19 @@ default_platform :ios
     hockey(notes_type: "0", notes: notes)
   end
 
+  def notify_slack()
+    if ENV['FL_SLACK_CHANNEL'].to_s.strip.empty?
+      return
+    end
+    hockey_download_url = lane_context[SharedValues::HOCKEY_DOWNLOAD_LINK]
+    if hockey_download_url != nil
+      new_build_message = "A new build is available on <" + hockey_download_url + "|hockey>"
+      slack(message: new_build_message)
+    else
+      slack()
+    end
+  end
+
   def setup()
     ENV['SCAN_SCHEME'] = ENV['GYM_SCHEME']
     if ENV['SCAN_DEVICE'] == nil
@@ -89,6 +107,7 @@ default_platform :ios
   end
 
   after_all do |lane|
+    notify_slack()
   end
 
   error do |lane, exception|
