@@ -7,13 +7,14 @@
 curl https://raw.githubusercontent.com/theappbusiness/MasterFastfile/master/setup.sh | sh
 ```
 
+Then setup your environments using the `.env` files created for you. To complete the setup just add the missing variable values.
+
 To use the Master Fastfile add the following command to your Fastfile
 
 ```
 import_from_git(url: 'https://github.com/theappbusiness/MasterFastfile.git', branch: 'tags/1.5.0', path: 'Fastfile')
 ```
-
-Then setup your environments using the `.env` files created for you. To complete the setup just add the missing variable values.
+For more detailed instructions see our wiki [here](https://github.com/theappbusiness/MasterFastfile/wiki)
 
 ## Available lanes
 
