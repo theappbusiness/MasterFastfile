@@ -1,10 +1,16 @@
 ![The App Business](https://github.com/theappbusiness/MasterFastfile/blob/master/MasterFastfile.png)
 
 # MasterFastfile
- To setup your project to use the TAB master fastfile navigate to your project route and run the following command
+ To setup your project to use the TAB master fastfile navigate to your project root and run the following command
 
 ```
 curl https://raw.githubusercontent.com/theappbusiness/MasterFastfile/master/setup.sh | sh
+```
+
+To use the Master Fastfile add the following command to your Fastfile
+
+```
+import_from_git(url: 'https://github.com/theappbusiness/MasterFastfile.git', branch: 'tags/1.5.0', path: 'Fastfile')
 ```
 
 Then setup your environments using the `.env` files created for you. To complete the setup just add the missing variable values.
