@@ -10,45 +10,45 @@ default_platform :ios
 
 
   lane :test do
-    setup()
+    _setup()
     skip_slack = ENV['SCAN_SLACK_CHANNEL'].to_s.strip.empty?
     scan(skip_slack: skip_slack)
   end
 
-  lane :hockey do
-    setup()
+  lane :deploy_to_hockey do
+    _setup()
     scan
-    deploy_hockey()
+    _buildAndDeployToHockey()
   end
 
-  lane :hockey_no_test do
-    setup()
-    deploy_hockey()
+  lane :deploy_to_hockey_no_test do
+    _setup()
+    _buildAndDeployToHockey()
   end
 
   lane :local_build do |options|
       if options[:icon_overlay]
         icon_overlay(version: get_version_number)
       end
-      build_ipa()
+      _build_ipa()
   end
 
-  def deploy_hockey()
+  def _buildAndDeployToHockey()
     icon_overlay(version: get_version_number)
-    set_build_number()
-    build_ipa()
-    upload_to_hockey()
+    _set_build_number()
+    _build_ipa()
+    _upload_to_hockey()
   end
 
-  def build_ipa()
+  def _build_ipa()
     update_app_identifier(xcodeproj: ENV['FL_UPDATE_PLIST_PROJECT_PATH'],
                          plist_path: ENV['FL_UPDATE_PLIST_PATH'],
                      app_identifier: ENV['FL_UPDATE_PLIST_APP_IDENTIFIER'] )
     update_info_plist
-    build_with_gym()
+    _build_with_gym()
   end
 
-  def build_with_gym()
+  def _build_with_gym()
     install_provisioning_profile
     provisioning_profile_name = ENV['TAB_PROVISIONING_PROFILE']
     if provisioning_profile_name != nil
@@ -60,13 +60,13 @@ default_platform :ios
     end
   end
 
-  def upload_to_hockey()
+  def _upload_to_hockey()
     custom_notes = ENV['TAB_HOCKEY_RELEASE_NOTES'] || ""
-    notes = custom_notes == "" ? create_change_log() : custom_notes
+    notes = custom_notes == "" ? _create_change_log() : custom_notes
     hockey(notes_type: "0", notes: notes)
   end
 
-  def notify_slack()
+  def _notify_slack()
     if ENV['FL_SLACK_CHANNEL'].to_s.strip.empty?
       return
     end
@@ -79,7 +79,7 @@ default_platform :ios
     end
   end
 
-  def setup()
+  def _setup()
     ENV['SCAN_SCHEME'] = ENV['GYM_SCHEME']
     if ENV['SCAN_DEVICE'] == nil
       ENV['SCAN_DEVICE'] = "iPhone 6 (9.3)"
@@ -89,7 +89,7 @@ default_platform :ios
     end
   end
 
-  def set_build_number()
+  def _set_build_number()
     build_number = "0"
     use_timestamp = ENV['TAB_USE_TIME_FOR_BUILD_NUMBER'] || false
     if use_timestamp
@@ -100,14 +100,14 @@ default_platform :ios
     increment_build_number(build_number: build_number)
   end
 
-  def create_change_log()
+  def _create_change_log()
     cmd = "git log --after={1.day.ago} --pretty=format:'%an%x09%h%x09%cd%x09%s' --date=relative"
     output = `#{cmd}`
     return (output.length == 0) ? "No Changes" : output
   end
 
   after_all do |lane|
-    notify_slack()
+    _notify_slack()
   end
 
   error do |lane, exception|
