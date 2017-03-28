@@ -50,6 +50,7 @@ default_platform :ios
 
   def build_with_gym()
     install_provisioning_profile
+    _update_team_id_if_necessary
     provisioning_profile_name = ENV['TAB_PROVISIONING_PROFILE']
     if provisioning_profile_name != nil
       xcconfig_filename = Dir.pwd + "/TAB.release.xcconfig"
@@ -104,6 +105,12 @@ default_platform :ios
     cmd = "git log --after={1.day.ago} --pretty=format:'%an%x09%h%x09%cd%x09%s' --date=relative"
     output = `#{cmd}`
     return (output.length == 0) ? "No Changes" : output
+  end
+
+  def _update_team_id_if_necessary()
+    if !ENV['FL_PROJECT_SIGNING_PROJECT_PATH'].to_s.strip.empty? && !ENV['FL_PROJECT_TEAM_ID'].to_s.strip.empty?
+      update_project_team
+    end
   end
 
   after_all do |lane|
