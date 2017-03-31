@@ -21,14 +21,14 @@ For more detailed instructions [see our wiki](https://github.com/theappbusiness/
 
 * test
     * runs tests
-* hockey
+* deploy_to_hockey
     * runs tests
     * sets build number
     * adds build info to app icon
     * builds and archives project
     * generates changelog from git commits
     * uploads app to hockey
-* hockey_no_test
+* deploy_to_hockey_no_test
     * sets build number
     * adds build info to app icon
     * builds and archives project
