@@ -52,12 +52,19 @@ default_platform :ios
     install_provisioning_profile
     _update_team_id_if_necessary
     provisioning_profile_name = ENV['TAB_PROVISIONING_PROFILE']
+    # Default export method is enterprise since this is the most commonly used
+    export_method = "enterprise"
+    if ENV['TAB_EXPORT_METHOD'] != nil
+      export_method = ENV['TAB_EXPORT_METHOD']
+    else
+      UI.message("Fallbacking to enterprise export_method sinceTAB_EXPORT_METHOD is not defined")
+    end
     if provisioning_profile_name != nil
       xcconfig_filename = Dir.pwd + "/TAB.release.xcconfig"
       File.write(xcconfig_filename, "PROVISIONING_PROFILE_SPECIFIER = #{provisioning_profile_name}\n")
-      gym(use_legacy_build_api: true, xcconfig: xcconfig_filename)
+      gym(export_method: export_method, xcconfig: xcconfig_filename)
     else
-      gym(use_legacy_build_api: true)
+      gym(export_method: export_method)
     end
   end
 
