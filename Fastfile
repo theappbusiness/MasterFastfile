@@ -29,6 +29,7 @@ default_platform :ios
   lane :deploy_to_test_flight do
     _setup()
     scan
+    icon_overlay(version: get_version_number)
     _set_build_number()
 	  _build_ipa()
     _upload_to_test_flight()
