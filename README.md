@@ -34,7 +34,7 @@ For more detailed instructions [see our wiki](https://github.com/theappbusiness/
     * builds and archives project
     * generates changelog from git commits
     * uploads app to hockey
-* deploy_to_hockey_no_test
+* deploy_to_test_flight (How do I find my iTunes Connect team ID? [link](https://github.com/fastlane/fastlane/issues/4301#issuecomment-253461017))
     * runs tests
     * sets build number
     * adds build info to app icon
