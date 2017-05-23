@@ -31,7 +31,7 @@ default_platform :ios
     scan
     icon_overlay(version: get_version_number)
     _set_build_number()
-	  _build_ipa()
+    _build_ipa()
     _upload_to_test_flight()
   end
 
