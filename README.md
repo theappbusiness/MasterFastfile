@@ -2,6 +2,9 @@
 
 # MasterFastfile
 
+[![Release](https://img.shields.io/badge/release-2.0.0-green.svg)](https://github.com/theappbusiness/MasterFastfile/releases/tag/2.0.0)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/theappbusiness/MasterFastfile/blob/master/LICENSE)
+
 To setup your project to use the TAB MasterFastfile, navigate to your project root and run the following command:
 
 ```
@@ -39,6 +42,7 @@ For more detailed instructions [see our wiki](https://github.com/theappbusiness/
 	  * builds an ipa
 
 ## Custom Actions
+
 * icon_overlay
   * Adds overlay to app icon containing build information
 
@@ -56,3 +60,7 @@ Install using brew
 ```
 brew install ghostscript
 ```
+
+## License
+
+This project is licensed under the terms of the MIT license. See the [LICENSE](LICENSE) file.
