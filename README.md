@@ -60,6 +60,11 @@ end
 target MyWatchExtension.appex do
   "MyWatchExtensionProvisioningProfileName"
 end
+
+target MyOtherExtension.appex do
+  # MY_OTHER_EXTENSION_PROFILE_NAME could be defined in a .env file allowing support for multiple environments.
+  ENV['MY_OTHER_EXTENSION_PROFILE_NAME']
+end
 ```
 
 ## Dependencies
