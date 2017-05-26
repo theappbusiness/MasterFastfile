@@ -1,4 +1,4 @@
-fastlane_version "1.55.0"
+fastlane_version "2.30.1"
 
 default_platform :ios
 
@@ -7,11 +7,6 @@ default_platform :ios
       ENV['SLACK_URL'] = ENV['TAB_SLACK_WEBHOOK_URL']
     end
   end
-
-  lane :debug do
-    _parse_provision_file()
-  end
-
 
   lane :test do
     _setup()
