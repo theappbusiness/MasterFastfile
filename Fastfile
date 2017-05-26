@@ -125,7 +125,7 @@ default_platform :ios
   def _parse_provision_file()
     sh 'RUBYSCRIPT="$(echo \'def target(targetName, &doBlock)
       profileName = doBlock.call
-      print targetName + "_" + "PROVISIONING_PROFILE=\"" + profileName + "\"\n"
+      print targetName + "_" + "PROVISIONING_PROFILE = " + profileName + "\n"
     end
     \' & cat ProvFile)"
     echo "${RUBYSCRIPT}" | ruby > TAB.release.xcconfig
