@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2.1.0
+
+- Added support for signing multiple target projects using Provfile's
+
 ## 2.0.0
 
 - Renamed `hockey` to `deploy_to_hockey`
