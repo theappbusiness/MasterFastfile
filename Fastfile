@@ -129,7 +129,7 @@ default_platform :ios
     end
     \' & cat ProvFile)"
     echo "${RUBYSCRIPT}" | ruby > TAB.release.xcconfig
-    echo \'PROVISIONING_PROFILE_SPECIFIER=$($(WRAPPER_NAME)_PROVISIONING_PROFILE)\' >> TAB.release.xcconfig'
+    echo \'PROVISIONING_PROFILE_SPECIFIER=$($(TARGET_NAME)_PROVISIONING_PROFILE)\' >> TAB.release.xcconfig'
   end
 
   after_all do |lane|

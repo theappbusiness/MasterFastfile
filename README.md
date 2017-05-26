@@ -50,18 +50,18 @@ For more detailed information on how to setup your project and environment pleas
 
 ## Provfiles
 
-If you wish to support multiple extensions in your application using different provisioning profiles you will need to define a Provfile. In your Provfile you define your separate target wrapper names (aka MyApp.app, MyWatchExtension.appex) and the provisioning profile name to be used with them e.g.
+If you wish to support multiple extensions in your application using different provisioning profiles you will need to define a Provfile. In your Provfile you define your separate target names (aka MyApp, MyWatchExtension) and the provisioning profile name to be used with them e.g.
 
 ```
-target MyApp.app do
+target MyApp do
   "MyAppProvisioningProfileName"
 end
 
-target MyWatchExtension.appex do
+target MyWatchExtension do
   "MyWatchExtensionProvisioningProfileName"
 end
 
-target MyOtherExtension.appex do
+target MyOtherExtension do
   # MY_OTHER_EXTENSION_PROFILE_NAME could be defined in a .env file allowing support for multiple environments.
   ENV['MY_OTHER_EXTENSION_PROFILE_NAME']
 end
