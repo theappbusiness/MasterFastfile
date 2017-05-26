@@ -61,7 +61,7 @@ default_platform :ios
     end
     if File.file?("Provfile")
       _parse_provision_file()
-      gym(use_legacy_build_api: true, xcconfig: xcconfig_filename)
+      gym(export_method: export_method, xcconfig: xcconfig_filename)
     elsif provisioning_profile_name != nil
       File.write(xcconfig_filename, "PROVISIONING_PROFILE_SPECIFIER = #{provisioning_profile_name}\n")
       gym(export_method: export_method, xcconfig: xcconfig_filename)
