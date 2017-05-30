@@ -27,12 +27,15 @@ default_platform :ios
   end
 
   lane :deploy_to_test_flight do
-    _setup()
-    scan
-    icon_overlay(version: get_version_number)
-    _set_build_number()
-    _build_ipa()
-    _upload_to_test_flight()
+    if ENV['TAB_EXPORT_METHOD'] == "app-store"
+      _setup()
+      scan
+      _set_build_number()
+      _build_ipa()
+      _upload_to_test_flight()
+    else
+      UI.message("Deploy to Test Flight failed. Uploading to iTunes Connect only supports `app-store` export method.")
+    end
   end
 
   lane :local_build do |options|

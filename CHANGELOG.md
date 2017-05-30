@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2.1.0
+
+- Added `deploy_to_test_flight` for building and uploading to iTunes Connect
+
 ## 2.0.0
 
 - Renamed `hockey` to `deploy_to_hockey`
