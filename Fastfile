@@ -25,6 +25,18 @@ default_platform :ios
     _buildAndDeployToHockey()
   end
 
+  lane :deploy_to_test_flight do
+    if ENV['TAB_EXPORT_METHOD'] == "app-store"
+      _setup()
+      scan
+      _set_build_number()
+      _build_ipa()
+      _upload_to_test_flight()
+    else
+      UI.message("Deploy to Test Flight failed. Uploading to iTunes Connect only supports `app-store` export method.")
+    end
+  end
+
   lane :local_build do |options|
       if options[:icon_overlay]
         icon_overlay(version: get_version_number)
@@ -74,6 +86,14 @@ default_platform :ios
     custom_notes = ENV['TAB_HOCKEY_RELEASE_NOTES'] || ""
     notes = custom_notes == "" ? _create_change_log() : custom_notes
     hockey(notes_type: "0", notes: notes)
+  end
+
+  def _upload_to_test_flight()
+    pilot(username: ENV["ITUNES_CONNECT_USERNAME"],
+      team_id: ENV["ITUNES_CONNECT_TEAM_ID"],
+      itc_provider: ENV["ITUNES_CONNECT_PROVIDER"],
+      skip_waiting_for_build_processing: true,
+      skip_submission: true)
   end
 
   def _notify_slack()

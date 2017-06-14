@@ -37,6 +37,12 @@ For more detailed instructions [see our wiki](https://github.com/theappbusiness/
   * builds and archives project
   * generates changelog from git commits
   * uploads app to hockey
+* `deploy_to_test_flight` (How do I find my iTunes Connect team ID? [link](https://github.com/fastlane/fastlane/issues/4301#issuecomment-253461017))
+  * runs tests
+  * sets build number
+  * adds build info to app icon
+  * builds and archives project
+  * uploads app to test flight
 * `local_build`
   * optionally adds icon overlay: e.g. `fastlane local_build icon_overlay:true`
   * builds an ipa
