@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2.2.0
+
+- Added support for signing multiple target projects using Provfile's
+
 ## 2.1.0
 
 - Added `deploy_to_test_flight` for building and uploading to iTunes Connect
