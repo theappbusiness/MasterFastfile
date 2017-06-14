@@ -1,4 +1,4 @@
-fastlane_version "1.55.0"
+fastlane_version "2.30.1"
 
 default_platform :ios
 
@@ -7,7 +7,6 @@ default_platform :ios
       ENV['SLACK_URL'] = ENV['TAB_SLACK_WEBHOOK_URL']
     end
   end
-
 
   lane :test do
     _setup()
@@ -66,13 +65,16 @@ default_platform :ios
     provisioning_profile_name = ENV['TAB_PROVISIONING_PROFILE']
     # Default export method is enterprise since this is the most commonly used
     export_method = "enterprise"
+    xcconfig_filename = Dir.pwd + "/TAB.release.xcconfig"
     if ENV['TAB_EXPORT_METHOD'] != nil
       export_method = ENV['TAB_EXPORT_METHOD']
     else
       UI.message("Fallbacking to enterprise export_method sinceTAB_EXPORT_METHOD is not defined")
     end
-    if provisioning_profile_name != nil
-      xcconfig_filename = Dir.pwd + "/TAB.release.xcconfig"
+    if File.file?("Provfile")
+      _parse_provision_file()
+      gym(export_method: export_method, xcconfig: xcconfig_filename)
+    elsif provisioning_profile_name != nil
       File.write(xcconfig_filename, "PROVISIONING_PROFILE_SPECIFIER = #{provisioning_profile_name}\n")
       gym(export_method: export_method, xcconfig: xcconfig_filename)
     else
@@ -138,6 +140,16 @@ default_platform :ios
     if !ENV['FL_PROJECT_SIGNING_PROJECT_PATH'].to_s.strip.empty? && !ENV['FL_PROJECT_TEAM_ID'].to_s.strip.empty?
       update_project_team
     end
+  end
+
+  def _parse_provision_file()
+    sh 'RUBYSCRIPT="$(echo \'def target(targetName, &doBlock)
+      profileName = doBlock.call
+      print targetName + "_" + "PROVISIONING_PROFILE = " + profileName + "\n"
+    end
+    \' & cat ProvFile)"
+    echo "${RUBYSCRIPT}" | ruby > TAB.release.xcconfig
+    echo \'PROVISIONING_PROFILE_SPECIFIER=$($(TARGET_NAME)_PROVISIONING_PROFILE)\' >> TAB.release.xcconfig'
   end
 
   after_all do |lane|
