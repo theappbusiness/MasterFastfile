@@ -18,9 +18,9 @@ default_platform :ios
     _setup()
     skip_slack = ENV['SCAN_SLACK_CHANNEL'].to_s.strip.empty?
     scan(skip_slack: skip_slack,
-         devices: ["iPhone 8"],
-         output_types: "html",
-         scheme: ENV['UI_TEST_SCHEME'])
+         devices: ['TAB_UI_TEST_DEVICES'],
+         output_types: ['TAB_OUTPUT_TYPES'],
+         scheme: ENV['TAB_UI_TEST_SCHEME'])
   end
 
   lane :deploy_to_hockey do
@@ -125,6 +125,12 @@ default_platform :ios
     end
     if is_ci && ENV['TAB_XCODE_PATH'] != nil
       xcode_select(ENV['TAB_XCODE_PATH'])
+    end
+    if ENV['TAB_UI_TEST_SCHEME'] != nil && ENV['TAB_OUTPUT_TYPES'] == nil
+      ENV['TAB_OUTPUT_TYPES'] = "html"
+    end
+    if ENV['TAB_UI_TEST_SCHEME'] != nil && ENV['TAB_UI_TEST_DEVICES'] == nil
+      ENV['TAB_UI_TEST_DEVICES'] = ["iPhone 8"]
     end
   end
 
