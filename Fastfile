@@ -21,7 +21,7 @@ default_platform :ios
          devices: ["iPhone 8"],
          output_types: "html",
          include_simulator_logs: true,
-         test_without_building: true,
+         build_for_testing: true,
          scheme: ENV['UI_TEST_SCHEME'])
   end
 
