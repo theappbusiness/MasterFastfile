@@ -17,7 +17,12 @@ default_platform :ios
   lane :ui_test do
     _setup()
     skip_slack = ENV['SCAN_SLACK_CHANNEL'].to_s.strip.empty?
-    scan(skip_slack: skip_slack, devices: ["iPhone 8"], output_types: "html", include_simulator_logs: true, test_without_building: true)
+    scan(skip_slack: skip_slack,
+         devices: ["iPhone 8"],
+         output_types: "html",
+         include_simulator_logs: true,
+         test_without_building: true,
+         scheme: ENV['UI_TEST_SCHEME'])
   end
 
   lane :deploy_to_hockey do
