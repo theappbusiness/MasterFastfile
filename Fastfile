@@ -14,6 +14,12 @@ default_platform :ios
     scan(skip_slack: skip_slack)
   end
 
+  lane :ui_test do
+    _setup()
+    skip_slack = ENV['SCAN_SLACK_CHANNEL'].to_s.strip.empty?
+    scan devices: ["iPhone 8"], output_types: "html", include_simulator_logs true, test_without_building true
+  end
+
   lane :deploy_to_hockey do
     _setup()
     scan
