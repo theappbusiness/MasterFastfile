@@ -20,8 +20,6 @@ default_platform :ios
     scan(skip_slack: skip_slack,
          devices: ["iPhone 8"],
          output_types: "html",
-         include_simulator_logs: true,
-         build_for_testing: true,
          scheme: ENV['UI_TEST_SCHEME'])
   end
 
