@@ -19,7 +19,7 @@ default_platform :ios
     skip_slack = ENV['SCAN_SLACK_CHANNEL'].to_s.strip.empty?
     scan(skip_slack: skip_slack,
          devices: ['TAB_UI_TEST_DEVICES'],
-         output_types: ['TAB_OUTPUT_TYPES'],
+         output_types: ['TAB_REPORT_FORMATS'],
          scheme: ENV['TAB_UI_TEST_SCHEME'])
   end
 
