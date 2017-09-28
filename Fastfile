@@ -18,8 +18,8 @@ default_platform :ios
     _setup()
     skip_slack = ENV['SCAN_SLACK_CHANNEL'].to_s.strip.empty?
     scan(skip_slack: skip_slack,
-         devices: ['TAB_UI_TEST_DEVICES'],
-         output_types: ['TAB_REPORT_FORMATS'],
+         devices: ENV['TAB_UI_TEST_DEVICES'],
+         output_types: ENV['TAB_REPORT_FORMATS'],
          scheme: ENV['TAB_UI_TEST_SCHEME'])
   end
 
@@ -127,7 +127,7 @@ default_platform :ios
       xcode_select(ENV['TAB_XCODE_PATH'])
     end
     if ENV['TAB_UI_TEST_SCHEME'] != nil && ENV['TAB_OUTPUT_TYPES'] == nil
-      ENV['TAB_OUTPUT_TYPES'] = "html"
+      ENV['TAB_REPORT_FORMATS'] = "html"
     end
     if ENV['TAB_UI_TEST_SCHEME'] != nil && ENV['TAB_UI_TEST_DEVICES'] == nil
       ENV['TAB_UI_TEST_DEVICES'] = ["iPhone 8"]
