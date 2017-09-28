@@ -130,7 +130,7 @@ default_platform :ios
       ENV['TAB_REPORT_FORMATS'] = "html"
     end
     if ENV['TAB_UI_TEST_SCHEME'] != nil && ENV['TAB_UI_TEST_DEVICES'] == nil
-      ENV['TAB_UI_TEST_DEVICES'] = ["iPhone 8"]
+      ENV['TAB_UI_TEST_DEVICES'] = "iPhone 8"
     end
   end
 
