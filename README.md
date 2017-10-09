@@ -2,7 +2,7 @@
 
 # MasterFastfile
 
-[![Release](https://img.shields.io/badge/release-2.2.0-green.svg)](https://github.com/theappbusiness/MasterFastfile/releases/tag/2.2.0)
+[![Release](https://img.shields.io/badge/release-2.3.0-green.svg)](https://github.com/theappbusiness/MasterFastfile/releases/tag/2.3.0)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/theappbusiness/MasterFastfile/blob/master/LICENSE)
 
 To setup your project to use the TAB MasterFastfile, navigate to your project root and run the following command:
@@ -16,7 +16,7 @@ Then setup your environments using the `.env` files created for you. To complete
 To use the MasterFastfile add the following command to your Fastfile:
 
 ```ruby
-import_from_git(url: 'https://github.com/theappbusiness/MasterFastfile.git', branch: '2.0.0', path: 'Fastfile')
+import_from_git(url: 'https://github.com/theappbusiness/MasterFastfile.git', branch: '2.3.0', path: 'Fastfile')
 ```
 For more detailed instructions [see our wiki](https://github.com/theappbusiness/MasterFastfile/wiki)
 
@@ -24,6 +24,8 @@ For more detailed instructions [see our wiki](https://github.com/theappbusiness/
 
 * `test`
   * runs tests
+* `ui_test`
+  * runs ui tests
 * `deploy_to_hockey`
   * runs tests
   * sets build number
@@ -59,15 +61,15 @@ For more detailed information on how to setup your project and environment pleas
 If you wish to support multiple extensions in your application using different provisioning profiles you will need to define a Provfile. In your Provfile you define your separate target names (aka MyApp, MyWatchExtension) and the provisioning profile name to be used with them e.g.
 
 ```
-target MyApp do
+target 'MyApp' do
   "MyAppProvisioningProfileName"
 end
 
-target MyWatchExtension do
+target 'MyWatchExtension' do
   "MyWatchExtensionProvisioningProfileName"
 end
 
-target MyOtherExtension do
+target 'MyOtherExtension' do
   # MY_OTHER_EXTENSION_PROFILE_NAME could be defined in a .env file allowing support for multiple environments.
   ENV['MY_OTHER_EXTENSION_PROFILE_NAME']
 end

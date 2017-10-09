@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2.3.0
+
+- Added lane dedicated to running `ui_test` schemes
+
 ## 2.2.0
 
 - Added support for signing multiple target projects using Provfile's
