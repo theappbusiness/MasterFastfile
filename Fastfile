@@ -94,7 +94,7 @@ default_platform :ios
   def _upload_to_hockey()
     custom_notes = ENV['TAB_HOCKEY_RELEASE_NOTES'] || ""
     notes = custom_notes == "" ? _create_change_log() : custom_notes
-    mandatory = (ENV['TAB_MANDATORY_HOCKEY_UPDATE'] || false) ? "1" : "0"
+    mandatory = ENV['TAB_MANDATORY_HOCKEY_UPDATE'] || "0"
     hockey(notes_type: "0", notes: notes, mandatory: mandatory)
   end
 
