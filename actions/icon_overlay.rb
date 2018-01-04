@@ -15,9 +15,9 @@ module Fastlane
 
     class IconOverlayAction < Action
       def self.run(params)
-        source_path = ENV['ICON_OVERLAY_SOURCE_PATH'] || ""
-        assets_path = ENV['ICON_OVERLAY_ASSETS_BUNDLE'] || ""
-        if source_path == "" && assets_path == ""
+        source_path = ENV['ICON_OVERLAY_SOURCE_PATH']
+        assets_path = ENV['ICON_OVERLAY_ASSETS_BUNDLE']
+        if source_path.to_s.empty? && assets_path.to_s.empty?
           puts "Skipping icon overlay"
           return
         end
