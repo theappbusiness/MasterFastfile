@@ -4,9 +4,7 @@ default_platform :ios
 # --------- Before any lane runs --------- #
 
 before_all do
-  if ENV['SLACK_URL'] == nil
-    ENV['SLACK_URL'] = ENV['TAB_SLACK_WEBHOOK_URL']
-  end
+  ENV['SLACK_URL'] ||= ENV['TAB_SLACK_WEBHOOK_URL']
 end
 
 # --------- Custom lanes --------- #
@@ -62,6 +60,17 @@ lane :local_build do |options|
       icon_overlay(version: get_version_number)
     end
     _build_ipa()
+end
+
+# --------- After all lanes have run --------- #
+
+after_all do |lane|
+  _notify_slack()
+end
+
+# --------- Error handling --------- #
+
+error do |lane, exception|
 end
 
 # --------- Custom functions --------- #
@@ -178,15 +187,4 @@ def _notify_slack()
   else
     slack()
   end
-end
-
-# --------- After all lanes have run --------- #
-
-after_all do |lane|
-  _notify_slack()
-end
-
-# --------- Error handling --------- #
-
-error do |lane, exception|
 end
