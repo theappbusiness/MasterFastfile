@@ -145,11 +145,13 @@ def _get_export_method()
 end
 
 def _update_team_id_if_necessary()
-  if !_get_team_id().to_s.strip.empty?
-    UI.message("Updating project team.")
-    update_project_team
+  project_path = ENV['FL_PROJECT_SIGNING_PROJECT_PATH']
+  team_id = _get_team_id()
+  if !project_path.to_s.strip.empty? && !team_id.to_s.strip.empty?
+    UI.message("Updating project team with project path '#{project_path}' and team id '#{team_id}'.")
+    update_project_team(path: project_path, teamid: team_id)
   else
-    UI.message("Unable to find project team so skipping updating project team.")
+    UI.message("Unable to find project path or project team so skipping updating project team.")
   end
 end
 
@@ -159,6 +161,7 @@ def _get_team_id()
     UI.message("Attempting to extract team ID from `GYM_EXPORT_OPTIONS` since `FL_PROJECT_TEAM_ID` is not defined.")
     team_id = get_info_plist_value(path: ENV['GYM_EXPORT_OPTIONS'], key: "teamID")
   end
+  team_id
 end
 
 def _parse_provision_file()
