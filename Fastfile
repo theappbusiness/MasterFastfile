@@ -156,6 +156,7 @@ end
 def _get_main_project_path()
   project_path = ENV['FL_PROJECT_SIGNING_PROJECT_PATH']
   unless project_path
+    UI.message("Attempting to find project since `FL_PROJECT_SIGNING_PROJECT_PATH` is not defined.")
     project_path = Dir['*.xcodeproj'].first
   end
 end
@@ -163,6 +164,7 @@ end
 def _get_team_id()
   team_id = ENV['FL_PROJECT_TEAM_ID']
   unless team_id
+    UI.message("Attempting to extract team ID from `GYM_EXPORT_OPTIONS` since `FL_PROJECT_TEAM_ID` is not defined.")
     team_id = get_info_plist_value(path: ENV['GYM_EXPORT_OPTIONS'], key: "teamID")
   end
 end
