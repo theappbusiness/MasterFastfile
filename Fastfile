@@ -145,9 +145,11 @@ def _get_export_method()
 end
 
 def _update_team_id_if_necessary()
-  if !_get_main_project_path().to_s.strip.empty? && !_get_team_id().to_s.strip.empty?
+  project_path = _get_main_project_path()
+  team_id = _get_team_id()
+  if !project_path.to_s.strip.empty? && !team_id.to_s.strip.empty?
     UI.message("Updating project team.")
-    update_project_team
+    update_project_team(path: project_path, teamid: team_id)
   else
     UI.message("Unable to find project path or project team so skipping updating project team.")
   end
