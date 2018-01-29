@@ -154,11 +154,17 @@ def _update_team_id_if_necessary()
 end
 
 def _get_main_project_path()
-  ENV['FL_PROJECT_SIGNING_PROJECT_PATH'] ||= Dir['*.xcodeproj'].first
+  project_path = ENV['FL_PROJECT_SIGNING_PROJECT_PATH']
+  unless project_path
+    project_path = Dir['*.xcodeproj'].first
+  end
 end
 
 def _get_team_id()
-  ENV['FL_PROJECT_TEAM_ID'] ||= get_info_plist_value(path: ENV['GYM_EXPORT_OPTIONS'], key: "teamID")
+  team_id = ENV['FL_PROJECT_TEAM_ID']
+  unless team_id
+    team_id = get_info_plist_value(path: ENV['GYM_EXPORT_OPTIONS'], key: "teamID")
+  end
 end
 
 def _parse_provision_file()
