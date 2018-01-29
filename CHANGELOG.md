@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 3.0.0
+
+- Removed use of `TAB_EXPORT_METHOD`, instead extracting the export method from the environment's `GYM_EXPORT_OPTIONS` plist.
+- If `FL_PROJECT_TEAM_ID` is not set, the team ID is extracted from the environment's `GYM_EXPORT_OPTIONS` plist.
+- Removed the need to set `FL_PROJECT_SIGNING_PROJECT_PATH` to update the team ID as Fastlane finds this automatically internally.
+
 ## 2.3.0
 
 - Added lane dedicated to running `ui_test` schemes
