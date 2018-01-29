@@ -145,7 +145,7 @@ def _get_export_method()
 end
 
 def _update_team_id_if_necessary()
-  project_path = _get_main_project_path()
+  project_path = ENV['FL_PROJECT_SIGNING_PROJECT_PATH']
   team_id = _get_team_id()
   if !project_path.to_s.strip.empty? && !team_id.to_s.strip.empty?
     UI.message("Updating project team with project path '#{project_path}' and team id '#{team_id}'.")
@@ -153,16 +153,6 @@ def _update_team_id_if_necessary()
   else
     UI.message("Unable to find project path or project team so skipping updating project team.")
   end
-end
-
-def _get_main_project_path()
-  project_path = ENV['FL_PROJECT_SIGNING_PROJECT_PATH']
-  unless project_path
-    UI.message("Attempting to find project since `FL_PROJECT_SIGNING_PROJECT_PATH` is not defined.")
-    project_path = Dir['../*.xcodeproj'].first
-    UI.message("Path: #{project_path}")
-  end
-  project_path
 end
 
 def _get_team_id()
