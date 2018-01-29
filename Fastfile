@@ -158,7 +158,7 @@ def _get_main_project_path()
   unless project_path
     UI.message("Attempting to find project since `FL_PROJECT_SIGNING_PROJECT_PATH` is not defined.")
     # project_path
-    UI.message("Test #{Dir['*']}")
+    UI.message("Test #{Dir['./*']}")
 
   end
 end
