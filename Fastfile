@@ -157,7 +157,7 @@ def _get_main_project_path()
   project_path = ENV['FL_PROJECT_SIGNING_PROJECT_PATH']
   unless project_path
     UI.message("Attempting to find project since `FL_PROJECT_SIGNING_PROJECT_PATH` is not defined.")
-    project_path = Dir['*.xcodeproj'].first
+    project_path = Dir['./*.xcodeproj'].first
   end
 end
 
