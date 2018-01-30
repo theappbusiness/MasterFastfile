@@ -135,13 +135,12 @@ def _build_with_gym()
 end
 
 def _get_export_method()
-  export_method = "enterprise"  # Default export method is `enterprise` since this is the most commonly used
-  if ENV['GYM_EXPORT_OPTIONS'] != nil
-    export_method = get_info_plist_value(path: ENV['GYM_EXPORT_OPTIONS'], key: "method")
-  else
-    UI.message("Falling back to enterprise `export_method` since `GYM_EXPORT_OPTIONS` is not defined")
-  end
-  export_method
+  ENV['GYM_EXPORT_OPTIONS'].nil? ? get_info_plist_value(path: ENV['GYM_EXPORT_OPTIONS'], key: "method") : _fallback_to_enterprise_export_method()
+end
+
+def _fallback_to_enterprise_export_method()
+  UI.message("Falling back to enterprise `export_method` since `GYM_EXPORT_OPTIONS` is not defined")
+  "enterprise"
 end
 
 def _update_team_id_if_necessary()
