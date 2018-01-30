@@ -135,7 +135,7 @@ def _build_with_gym()
 end
 
 def _get_export_method()
-  ENV['GYM_EXPORT_OPTIONS'].nil? ? get_info_plist_value(path: ENV['GYM_EXPORT_OPTIONS'], key: "method") : _fallback_to_enterprise_export_method()
+  ENV['GYM_EXPORT_OPTIONS'].nil? ? _fallback_to_enterprise_export_method() : get_info_plist_value(path: ENV['GYM_EXPORT_OPTIONS'], key: "method")
 end
 
 def _fallback_to_enterprise_export_method()
