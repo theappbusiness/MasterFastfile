@@ -146,7 +146,7 @@ end
 def _update_team_id_if_necessary()
   project_path = ENV['FL_PROJECT_SIGNING_PROJECT_PATH']
   team_id = _get_team_id()
-  if !project_path.to_s.strip.nil? && !team_id.to_s.strip.nil?
+  if !project_path.to_s.strip.empty? && !team_id.to_s.strip.empty?
     UI.message("Updating project team with project path '#{project_path}' and team id '#{team_id}'.")
     update_project_team(path: project_path, teamid: team_id)
   else
