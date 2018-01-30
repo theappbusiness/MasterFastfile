@@ -43,14 +43,14 @@ end
 
 desc "Runs all unit tests before deploying to TestFlight."
 lane :deploy_to_test_flight do
-  if ENV['TAB_EXPORT_METHOD'] == "app-store"
+  if _get_export_method() == "app-store"
     _setup()
     scan
     _set_build_number()
     _build_ipa()
     _upload_to_test_flight()
   else
-    UI.message("Deploy to Test Flight failed. Uploading to iTunes Connect only supports `app-store` export method.")
+    UI.message("Deploy to TestFlight failed. Uploading to iTunes Connect only supports `app-store` export method.")
   end
 end
 
@@ -121,14 +121,8 @@ def _build_with_gym()
   install_provisioning_profile
   _update_team_id_if_necessary
   provisioning_profile_name = ENV['TAB_PROVISIONING_PROFILE']
-  # Default export method is enterprise since this is the most commonly used
-  export_method = "enterprise"
+  export_method = _get_export_method()
   xcconfig_filename = Dir.pwd + "/TAB.release.xcconfig"
-  if ENV['TAB_EXPORT_METHOD'] != nil
-    export_method = ENV['TAB_EXPORT_METHOD']
-  else
-    UI.message("Fallbacking to enterprise export_method sinceTAB_EXPORT_METHOD is not defined")
-  end
   if File.file?("Provfile")
     _parse_provision_file()
     gym(export_method: export_method, xcconfig: xcconfig_filename)
@@ -140,10 +134,33 @@ def _build_with_gym()
   end
 end
 
+def _get_export_method()
+  ENV['GYM_EXPORT_OPTIONS'].nil? ? _fallback_to_enterprise_export_method() : get_info_plist_value(path: ENV['GYM_EXPORT_OPTIONS'], key: "method")
+end
+
+def _fallback_to_enterprise_export_method()
+  UI.message("Falling back to enterprise `export_method` since `GYM_EXPORT_OPTIONS` is not defined")
+  "enterprise"
+end
+
 def _update_team_id_if_necessary()
-  if !ENV['FL_PROJECT_SIGNING_PROJECT_PATH'].to_s.strip.empty? && !ENV['FL_PROJECT_TEAM_ID'].to_s.strip.empty?
-    update_project_team
+  project_path = ENV['FL_PROJECT_SIGNING_PROJECT_PATH']
+  team_id = _get_team_id()
+  if project_path.to_s.strip.present? && team_id.to_s.strip.present?
+    UI.message("Updating project team with project path '#{project_path}' and team id '#{team_id}'.")
+    update_project_team(path: project_path, teamid: team_id)
+  else
+    UI.message("Unable to find project path or project team so skipping updating project team.")
   end
+end
+
+def _get_team_id()
+  team_id = ENV['FL_PROJECT_TEAM_ID']
+  unless team_id
+    UI.message("Attempting to extract team ID from `GYM_EXPORT_OPTIONS` since `FL_PROJECT_TEAM_ID` is not defined.")
+    team_id = get_info_plist_value(path: ENV['GYM_EXPORT_OPTIONS'], key: "teamID")
+  end
+  team_id
 end
 
 def _parse_provision_file()

@@ -16,7 +16,7 @@ Then setup your environments using the `.env` files created for you. To complete
 To use the MasterFastfile add the following command to your Fastfile:
 
 ```ruby
-import_from_git(url: 'https://github.com/theappbusiness/MasterFastfile.git', branch: '2.3.0', path: 'Fastfile')
+import_from_git(url: 'https://github.com/theappbusiness/MasterFastfile.git', branch: '3.0.0', path: 'Fastfile')
 ```
 For more detailed instructions [see our wiki](https://github.com/theappbusiness/MasterFastfile/wiki)
 
