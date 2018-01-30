@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 3.0.0
+
+- Removed use of `TAB_EXPORT_METHOD`, instead extracting the export method from the environment's `GYM_EXPORT_OPTIONS` plist.
+- If `FL_PROJECT_TEAM_ID` is not set, the team ID is extracted from the environment's `GYM_EXPORT_OPTIONS` plist.
+
 ## 2.3.0
 
 - Added lane dedicated to running `ui_test` schemes
