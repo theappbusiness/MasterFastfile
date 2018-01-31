@@ -161,13 +161,15 @@ def _create_xcconfig(filename)
   # TODO: Replace spaces with underscores?
   # TODO: Try not to need `TAB_PROJECT_PATH`
   project = Xcodeproj::Project.open(ENV['TAB_PROJECT_PATH'])
+  lines = []
   project.targets.each do |target|
     profile = _get_profile_for_target(target)
     if !profile.nil?
-      sh "echo \"#{target.name}_PROFILE_SPECIFIER=#{profile}\" >> #{filename}"
+      lines.push("#{target.name}_PROFILE_SPECIFIER=#{profile}")
     end
   end
-  sh "echo 'PROVISIONING_PROFILE_SPECIFIER=$($(TARGET_NAME)_PROFILE_SPECIFIER)' >> #{filename}"
+  lines.push("PROVISIONING_PROFILE_SPECIFIER=$($(TARGET_NAME)_PROFILE_SPECIFIER)")
+  File.write(filename, lines.join("\n"))
 end
 
 def _get_profile_for_target(target)
