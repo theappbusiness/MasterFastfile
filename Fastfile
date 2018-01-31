@@ -158,7 +158,6 @@ def _get_team_id()
 end
 
 def _create_xcconfig(filename)
-  # TODO: Replace spaces with underscores?
   # TODO: Try not to need `TAB_PROJECT_PATH`
   project = Xcodeproj::Project.open(ENV['TAB_PROJECT_PATH'])
   lines = []
