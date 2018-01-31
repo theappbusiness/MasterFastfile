@@ -164,7 +164,7 @@ def _create_xcconfig()
   project = Xcodeproj::Project.open(ENV['TAB_PROJECT_PATH'])
   project.targets.each do |target|
     profile = _get_profile_for_target(target)
-    if profile.nil?
+    if !profile.nil?
       sh "echo \"#{target.name}_PROFILE_SPECIFIER=#{profile}\" >> TAB.release.xcconfig"
     end
   end
