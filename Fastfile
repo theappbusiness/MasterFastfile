@@ -123,7 +123,7 @@ def _build_with_gym()
   _update_team_id_if_necessary
   export_method = _get_export_method()
   xcconfig_filename = Dir.pwd + "/TAB.release.xcconfig"
-  _create_xcconfig()
+  _create_xcconfig(xcconfig_filename)
   gym(export_method: export_method, xcconfig: xcconfig_filename)
 end
 
@@ -157,17 +157,17 @@ def _get_team_id()
   team_id
 end
 
-def _create_xcconfig()
+def _create_xcconfig(filename)
   # TODO: Replace spaces with underscores?
   # TODO: Try not to need `TAB_PROJECT_PATH`
   project = Xcodeproj::Project.open(ENV['TAB_PROJECT_PATH'])
   project.targets.each do |target|
     profile = _get_profile_for_target(target)
     if !profile.nil?
-      sh "echo \"#{target.name}_PROFILE_SPECIFIER=#{profile}\" >> TAB.release.xcconfig"
+      sh "echo \"#{target.name}_PROFILE_SPECIFIER=#{profile}\" >> #{filename}"
     end
   end
-  sh 'echo \'PROVISIONING_PROFILE_SPECIFIER=$($(TARGET_NAME)_PROFILE_SPECIFIER)\' >> TAB.release.xcconfig'
+  sh "echo PROVISIONING_PROFILE_SPECIFIER=$($(TARGET_NAME)_PROFILE_SPECIFIER) >> #{filename}"
 end
 
 def _get_profile_for_target(target)
