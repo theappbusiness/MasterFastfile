@@ -124,7 +124,7 @@ def _build_with_gym()
   export_method = _get_export_method()
   xcconfig_filename = Dir.pwd + "/TAB.release.xcconfig"
   if File.file?("Provfile")
-    _parse_provision_file()
+    _create_xcconfig()
     gym(export_method: export_method, xcconfig: xcconfig_filename)
   elsif provisioning_profile_name != nil
     File.write(xcconfig_filename, "PROVISIONING_PROFILE_SPECIFIER = #{provisioning_profile_name}\n")
@@ -164,14 +164,24 @@ def _get_team_id()
   team_id
 end
 
-def _parse_provision_file()
-  sh 'RUBYSCRIPT="$(echo \'def target(targetName, &doBlock)
-    profileName = doBlock.call
-    print targetName + "_" + "PROVISIONING_PROFILE = " + profileName + "\n"
+def _create_xcconfig()
+  # TODO: Ignore test targets
+  # TODO: Replace spaces with underscores
+  # TODO: Environment variable for project
+  project = Xcodeproj::Project.open(ENV['FL_PROJECT_SIGNING_PROJECT_PATH'])
+  project.targets.each do |target|
+    profile = _get_profile_for_target(target)
+    sh "echo \"#{target.name}_PROFILE_SPECIFIER=#{profile}\" >> TAB.release.xcconfig"
   end
-  \' & cat ProvFile)"
-  echo "${RUBYSCRIPT}" | ruby > TAB.release.xcconfig
-  echo \'PROVISIONING_PROFILE_SPECIFIER=$($(TARGET_NAME)_PROVISIONING_PROFILE)\' >> TAB.release.xcconfig'
+  sh 'echo \'PROVISIONING_PROFILE_SPECIFIER=$($(TARGET_NAME)_PROVISIONING_PROFILE)\' >> TAB.release.xcconfig'
+end
+
+def _get_profile_for_target(target)
+  # TODO: Environment variable for plist
+  config = target.build_configurations.first
+  bundleID = config.build_settings['PRODUCT_BUNDLE_IDENTIFIER']
+  profilesHash = get_info_plist_value(path: ENV['GYM_EXPORT_OPTIONS'], key: "provisioningProfiles")
+  profilesHash[bundleID]
 end
 
 def _upload_to_hockey()
