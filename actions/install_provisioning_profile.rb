@@ -1,19 +1,20 @@
 module Fastlane
   module Actions
     module SharedValues
-      INSTALL_PROVISIONING_PROFILE_CUSTOM_VALUE = :INSTALL_PROVISIONING_PROFILE_CUSTOM_VALUE
     end
 
     class InstallProvisioningProfileAction < Action
       def self.run(params)
-        if ENV['TAB_PROVISIONING_PROFILE_PATH'] != nil
-          provisioning_profile_path=ENV['TAB_PROVISIONING_PROFILE_PATH']
-          provisioning_profile_uuid = `grep UUID -A1 -a #{provisioning_profile_path} | grep -io \"[-A-Z0-9]\\{36\\}\"`
-          provisioning_profile_destination = "#{ENV['HOME']}/Library/MobileDevice/Provisioning\\\ Profiles/#{provisioning_profile_uuid.strip}.mobileprovision"
-          `cp #{provisioning_profile_path} #{provisioning_profile_destination}`
-          UI.success("Installed profile at path #{params[:provisioning_profile_path]} succesfully")
-        else 
-          UI.message("Skipping installing provisioning profile since TAB_PROVISIONING_PROFILE_PATH is not defined")
+        profile_paths = Dir.glob("./**/*.mobileprovision")
+        if profile_paths.empty?
+          UI.message("Skipping installing provisioning profiles since no profiles were found.")
+        else
+          profile_paths.each do |path|
+            uuid = `grep UUID -A1 -a #{path} | grep -io \"[-A-Z0-9]\\{36\\}\"`
+            destination = "#{ENV['HOME']}/Library/MobileDevice/Provisioning\\\ Profiles/#{uuid.strip}.mobileprovision"
+            `cp #{path} #{destination}`
+            UI.success("Installed profile at path #{path} succesfully")
+          end
         end
       end
 
@@ -22,21 +23,18 @@ module Fastlane
       #####################################################
 
       def self.description
-        "Installs a provisioning profile from a path"
+        "Installs all local provisioning profiles contained within the directory this action is run in."
       end
 
       def self.available_options
-        [
-          FastlaneCore::ConfigItem.new(key: :provisioning_profile_path,
-                                       env_name: "TAB_PROVISIONING_PROFILE_PATH",
-                                       description: "The path of the provisioning profile to install",
-                                       is_string: false, # true: verifies the input is a string, false: every kind of value
-                                       default_value: false) # the default value if the user didn't provide one
-        ]
+        []
       end
 
       def self.authors
-        ["Luciano Marisi @lucianomarisi"]
+        [
+          "Luciano Marisi @lucianomarisi",
+          "Kane Cheshire @KaneCheshire"
+        ]
       end
 
       def self.is_supported?(platform)
