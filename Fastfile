@@ -167,7 +167,7 @@ def _create_xcconfig(filename)
       sh "echo \"#{target.name}_PROFILE_SPECIFIER=#{profile}\" >> #{filename}"
     end
   end
-  sh "echo \"PROVISIONING_PROFILE_SPECIFIER=$($(TARGET_NAME)_PROFILE_SPECIFIER) >> #{filename}\""
+  sh "echo \"PROVISIONING_PROFILE_SPECIFIER=$($(TARGET_NAME)_PROFILE_SPECIFIER)\" >> #{filename}"
 end
 
 def _get_profile_for_target(target)
