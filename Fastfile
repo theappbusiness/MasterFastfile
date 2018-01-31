@@ -123,15 +123,8 @@ def _build_with_gym()
   provisioning_profile_name = ENV['TAB_PROVISIONING_PROFILE']
   export_method = _get_export_method()
   xcconfig_filename = Dir.pwd + "/TAB.release.xcconfig"
-  if File.file?("Provfile")
-    _create_xcconfig()
-    gym(export_method: export_method, xcconfig: xcconfig_filename)
-  elsif provisioning_profile_name != nil
-    File.write(xcconfig_filename, "PROVISIONING_PROFILE_SPECIFIER = #{provisioning_profile_name}\n")
-    gym(export_method: export_method, xcconfig: xcconfig_filename)
-  else
-    gym(export_method: export_method)
-  end
+  _create_xcconfig()
+  gym(export_method: export_method, xcconfig: xcconfig_filename)
 end
 
 def _get_export_method()
@@ -168,7 +161,7 @@ def _create_xcconfig()
   # TODO: Ignore test targets
   # TODO: Replace spaces with underscores
   # TODO: Environment variable for project
-  project = Xcodeproj::Project.open(ENV['FL_PROJECT_SIGNING_PROJECT_PATH'])
+  project = Xcodeproj::Project.open(ENV['TAB_PROJECT_PATH'])
   project.targets.each do |target|
     profile = _get_profile_for_target(target)
     sh "echo \"#{target.name}_PROFILE_SPECIFIER=#{profile}\" >> TAB.release.xcconfig"
