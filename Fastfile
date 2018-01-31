@@ -118,9 +118,9 @@ def _build_ipa()
 end
 
 def _build_with_gym()
+  # TODO: `install_provisioning_profile` only installs the provisioning profile for the main target
   install_provisioning_profile
   _update_team_id_if_necessary
-  provisioning_profile_name = ENV['TAB_PROVISIONING_PROFILE']
   export_method = _get_export_method()
   xcconfig_filename = Dir.pwd + "/TAB.release.xcconfig"
   _create_xcconfig()
@@ -158,9 +158,8 @@ def _get_team_id()
 end
 
 def _create_xcconfig()
-  # TODO: Ignore test targets
-  # TODO: Replace spaces with underscores
-  # TODO: Environment variable for project
+  # TODO: Replace spaces with underscores?
+  # TODO: Try not to need `TAB_PROJECT_PATH`
   project = Xcodeproj::Project.open(ENV['TAB_PROJECT_PATH'])
   project.targets.each do |target|
     profile = _get_profile_for_target(target)
@@ -172,7 +171,6 @@ def _create_xcconfig()
 end
 
 def _get_profile_for_target(target)
-  # TODO: Environment variable for plist
   config = target.build_configurations.first
   bundleID = config.build_settings['PRODUCT_BUNDLE_IDENTIFIER']
   profilesHash = get_info_plist_value(path: ENV['GYM_EXPORT_OPTIONS'], key: "provisioningProfiles")
