@@ -3,7 +3,7 @@ module Fastlane
     module SharedValues
     end
 
-    class InstallProvisioningProfileAction < Action
+    class InstallProvisioningProfilesAction < Action
       def self.run(params)
         profile_paths = Dir.glob("./**/*.mobileprovision")
         if profile_paths.empty?
@@ -13,7 +13,7 @@ module Fastlane
             uuid = `grep UUID -A1 -a #{path} | grep -io \"[-A-Z0-9]\\{36\\}\"`
             destination = "#{ENV['HOME']}/Library/MobileDevice/Provisioning\\\ Profiles/#{uuid.strip}.mobileprovision"
             `cp #{path} #{destination}`
-            UI.success("Installed profile at path #{path} succesfully")
+            UI.success("Installed profile at path #{path} successfully")
           end
         end
       end

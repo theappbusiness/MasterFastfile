@@ -55,7 +55,7 @@ For more detailed instructions [see our wiki](https://github.com/theappbusiness/
 
 ## Custom Actions
 
-* `install_provisioning_profile`
+* `install_provisioning_profiles`
   * Automatically installs any provisioning profiles included in your Fastlane directory
 
 * `icon_overlay`
