@@ -1,7 +1,6 @@
 module Fastlane
   module Actions
     module SharedValues
-      INSTALL_PROVISIONING_PROFILE_CUSTOM_VALUE = :INSTALL_PROVISIONING_PROFILE_CUSTOM_VALUE
     end
 
     class CreateXcconfigAction < Action
