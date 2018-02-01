@@ -11,9 +11,14 @@ module Fastlane
         else
           profile_paths.each do |path|
             uuid = `grep UUID -A1 -a #{path} | grep -io \"[-A-Z0-9]\\{36\\}\"`
-            destination = "#{ENV['HOME']}/Library/MobileDevice/Provisioning\\\ Profiles/#{uuid.strip}.mobileprovision"
-            `cp #{path} #{destination}`
-            UI.success("Installed profile at path #{path} successfully")
+            destination = "#{ENV['HOME']}/Library/MobileDevice/Provisioning Profiles/#{uuid.strip}.mobileprovision"
+            begin
+              FileUtils.cp(path, destination)
+            rescue
+              UI.important("Failed to install profile at path #{path} to #{destination}")
+            else
+              UI.success("Installed profile at path #{path} successfully to #{destination}")
+            end
           end
         end
       end
