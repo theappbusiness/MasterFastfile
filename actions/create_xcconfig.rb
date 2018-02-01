@@ -29,8 +29,7 @@ module Fastlane
       def self.get_profile_for_target(target)
         config = target.build_configurations.first
         bundleID = config.build_settings['PRODUCT_BUNDLE_IDENTIFIER']
-        action = Fastlane::Actions::GetInfoPlistValueAction
-        profilesHash = action.run(path: ENV['GYM_EXPORT_OPTIONS'], key: "provisioningProfiles")
+        profilesHash = GetInfoPlistValueAction.run(path: ENV['GYM_EXPORT_OPTIONS'], key: "provisioningProfiles")
         profilesHash[bundleID]
       end
 
