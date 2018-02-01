@@ -118,12 +118,11 @@ def _build_ipa()
 end
 
 def _build_with_gym()
-  # TODO: `install_provisioning_profile` only installs the provisioning profile for the main target
   install_provisioning_profile
   _update_team_id_if_necessary
   export_method = _get_export_method()
   xcconfig_filename = Dir.pwd + "/TAB.release.xcconfig"
-  _create_xcconfig(xcconfig_filename)
+  create_xcconfig(filename: xcconfig_filename)
   gym(export_method: export_method, xcconfig: xcconfig_filename)
 end
 
@@ -155,27 +154,6 @@ def _get_team_id()
     team_id = get_info_plist_value(path: ENV['GYM_EXPORT_OPTIONS'], key: "teamID")
   end
   team_id
-end
-
-def _create_xcconfig(filename)
-  # TODO: Try not to need `TAB_PROJECT_PATH`
-  project = Xcodeproj::Project.open(ENV['TAB_PROJECT_PATH'])
-  lines = []
-  project.targets.each do |target|
-    profile = _get_profile_for_target(target)
-    if !profile.nil?
-      lines.push("#{target.name}_PROFILE_SPECIFIER=#{profile}")
-    end
-  end
-  lines.push("PROVISIONING_PROFILE_SPECIFIER=$($(TARGET_NAME)_PROFILE_SPECIFIER)")
-  File.write(filename, lines.join("\n"))
-end
-
-def _get_profile_for_target(target)
-  config = target.build_configurations.first
-  bundleID = config.build_settings['PRODUCT_BUNDLE_IDENTIFIER']
-  profilesHash = get_info_plist_value(path: ENV['GYM_EXPORT_OPTIONS'], key: "provisioningProfiles")
-  profilesHash[bundleID]
 end
 
 def _upload_to_hockey()
