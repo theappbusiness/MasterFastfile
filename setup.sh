@@ -11,6 +11,8 @@ function make_default_env_file {
 #This is your default environment file
 #Set environment variables used in all builds here
 #More information on available environment variables can be found here https://github.com/theappbusiness/MasterFastfile/wiki/Quick-simple-setup-using-TAB-defaults
+
+FL_PROJECT_SIGNING_PROJECT_PATH="./yourproject.xcodeproj" # Path to your project (not workspace)
 FL_HOCKEY_API_TOKEN="" #Hocky API Token
 FL_HOCKEY_OWNER_ID="" #Hockey Organisation ID (number not name)
 FL_UPDATE_PLIST_PATH="" #Path to Info.plist
