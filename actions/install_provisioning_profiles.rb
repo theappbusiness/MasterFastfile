@@ -1,8 +1,5 @@
 module Fastlane
   module Actions
-    module SharedValues
-    end
-
     class InstallProvisioningProfilesAction < Action
       def self.run(params)
         profile_paths = Dir.glob("./**/*.mobileprovision")
