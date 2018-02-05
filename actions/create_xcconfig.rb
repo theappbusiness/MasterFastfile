@@ -22,7 +22,6 @@ module Fastlane
         else
           UI.success("Successfully created #{filename}")
         end
-
       end
 
       def self.get_profile_for_target(target)
