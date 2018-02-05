@@ -1,8 +1,5 @@
 module Fastlane
   module Actions
-    module SharedValues
-    end
-
     class CreateXcconfigAction < Action
       def self.run(params)
         filename = params[:filename]
