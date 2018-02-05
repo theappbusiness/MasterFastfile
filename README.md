@@ -2,7 +2,7 @@
 
 # MasterFastfile
 
-[![Release](https://img.shields.io/badge/release-2.3.0-green.svg)](https://github.com/theappbusiness/MasterFastfile/releases/tag/2.3.0)
+[![Release](https://img.shields.io/badge/release-3.0.0-green.svg)](https://github.com/theappbusiness/MasterFastfile/releases/tag/3.0.0)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/theappbusiness/MasterFastfile/blob/master/LICENSE)
 
 To setup your project to use the TAB MasterFastfile, navigate to your project root and run the following command:
@@ -29,6 +29,7 @@ For more detailed instructions [see our wiki](https://github.com/theappbusiness/
 * `deploy_to_hockey`
   * runs tests
   * sets build number
+  * installs provisioning profiles (if any are included in your Fastlane directory)
   * adds build info to app icon
   * builds and archives project
   * generates changelog from git commits
@@ -36,20 +37,26 @@ For more detailed instructions [see our wiki](https://github.com/theappbusiness/
 * `deploy_to_hockey_no_test`
   * sets build number
   * adds build info to app icon
+  * installs provisioning profiles
   * builds and archives project
   * generates changelog from git commits
   * uploads app to hockey
 * `deploy_to_test_flight` (How do I find my iTunes Connect team ID? [link](https://github.com/fastlane/fastlane/issues/4301#issuecomment-253461017))
   * runs tests
   * sets build number
+  * installs provisioning profiles
   * adds build info to app icon
   * builds and archives project
   * uploads app to test flight
 * `local_build`
   * optionally adds icon overlay: e.g. `fastlane local_build icon_overlay:true`
+  * installs provisioning profiles
   * builds an ipa
 
 ## Custom Actions
+
+* `install_provisioning_profiles`
+  * Automatically installs any provisioning profiles included in your Fastlane directory
 
 * `icon_overlay`
   * Adds overlay to app icon containing build information
