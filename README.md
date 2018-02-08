@@ -63,24 +63,22 @@ For more detailed instructions [see our wiki](https://github.com/theappbusiness/
 
 For more detailed information on how to setup your project and environment please see our [wiki](https://github.com/theappbusiness/MasterFastfile/wiki)
 
-## Provfiles
+## Code signing
 
-If you wish to support multiple extensions in your application using different provisioning profiles you will need to define a Provfile. In your Provfile you define your separate target names (aka MyApp, MyWatchExtension) and the provisioning profile name to be used with them e.g.
+From Xcode 9 and onwards you are required to provide an export options plist. The MasterFastfile uses this to its advantage to handle as much code signing stuff as it can on your behalf.
 
-```
-target 'MyApp' do
-  "MyAppProvisioningProfileName"
-end
+For the MasterFastfile to fully take advantage of your export options ensure that you have defined the following environment variables:
 
-target 'MyWatchExtension' do
-  "MyWatchExtensionProvisioningProfileName"
-end
+- `GYM_EXPORT_OPTIONS`: The path to your export options, see below for how to generate these (you can choose different export options for different environments this way).
+- `FL_PROJECT_SIGNING_PROJECT_PATH`: The path to your main Xcode project (not your workspace).
+- `FL_UPDATE_PLIST_APP_IDENTIFIER`: The bundle identifier you want your main app target to have (you can choose a different identifier for different environments).
 
-target 'MyOtherExtension' do
-  # MY_OTHER_EXTENSION_PROFILE_NAME could be defined in a .env file allowing support for multiple environments.
-  ENV['MY_OTHER_EXTENSION_PROFILE_NAME']
-end
-```
+Export options define which provisioning profiles to use for which targets, as well as stuff like the team and export type.
+The easiest way to figure out what your export options plist should contain is to manually set up code signing in Xcode\*, archive your app and then click "export...". Once exported, in the directory Xcode creates you'll be able to find an `ExportOptions.plist` file.
+
+The MasterFastfile uses whichever export options you have set for the `GYM_EXPORT_OPTIONS` environment variable to determine which provisioning profiles to use, as well as automatically detect which team should be used to code sign the app, and which export option to use.
+
+\*It's recommended to do this at least once anyway. You'll know for sure whether you have your code signing set up correctly, which will help debug issues you might encounter while using Fastlane.
 
 ## Dependencies
 

@@ -120,18 +120,10 @@ end
 def _build_with_gym()
   install_provisioning_profile
   _update_team_id_if_necessary
-  provisioning_profile_name = ENV['TAB_PROVISIONING_PROFILE']
   export_method = _get_export_method()
   xcconfig_filename = Dir.pwd + "/TAB.release.xcconfig"
-  if File.file?("Provfile")
-    _parse_provision_file()
-    gym(export_method: export_method, xcconfig: xcconfig_filename)
-  elsif provisioning_profile_name != nil
-    File.write(xcconfig_filename, "PROVISIONING_PROFILE_SPECIFIER = #{provisioning_profile_name}\n")
-    gym(export_method: export_method, xcconfig: xcconfig_filename)
-  else
-    gym(export_method: export_method)
-  end
+  create_xcconfig(filename: xcconfig_filename)
+  gym(export_method: export_method, xcconfig: xcconfig_filename)
 end
 
 def _get_export_method()
@@ -161,16 +153,6 @@ def _get_team_id()
     team_id = get_info_plist_value(path: ENV['GYM_EXPORT_OPTIONS'], key: "teamID")
   end
   team_id
-end
-
-def _parse_provision_file()
-  sh 'RUBYSCRIPT="$(echo \'def target(targetName, &doBlock)
-    profileName = doBlock.call
-    print targetName + "_" + "PROVISIONING_PROFILE = " + profileName + "\n"
-  end
-  \' & cat ProvFile)"
-  echo "${RUBYSCRIPT}" | ruby > TAB.release.xcconfig
-  echo \'PROVISIONING_PROFILE_SPECIFIER=$($(TARGET_NAME)_PROVISIONING_PROFILE)\' >> TAB.release.xcconfig'
 end
 
 def _upload_to_hockey()
