@@ -5,6 +5,19 @@
 [![Release](https://img.shields.io/badge/release-3.0.0-green.svg)](https://github.com/theappbusiness/MasterFastfile/releases/tag/3.0.0)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/theappbusiness/MasterFastfile/blob/master/LICENSE)
 
+The MasterFastfile is a centralised way to promote consistency across projects using Fastlane. It supports multiple environments well, handling large amounts of code signing logic with just a few environment variables needing to be set up front.
+
+- [Quick start](#quick-start)
+- [Available lanes](#available-lanes)
+- [Environment variables](#environment-variables)
+	- [ENVIRONMENT.md](ENVIRONMENT.md)
+- [Custom actions](#custom-actions)
+- [Code signing](#code-signing)
+- [Dependencies](#dependencies)
+- [License](#license)
+
+## Quick start
+
 To setup your project to use the TAB MasterFastfile, navigate to your project root and run the following command:
 
 ```shell
@@ -13,12 +26,11 @@ curl https://raw.githubusercontent.com/theappbusiness/MasterFastfile/master/setu
 
 Then setup your environments using the `.env` files created for you. To complete the setup just add the missing variable values.
 
-To use the MasterFastfile add the following command to your Fastfile:
+To use the MasterFastfile in an existing Fastfile, add the following command near the top of your Fastfile:
 
 ```ruby
 import_from_git(url: 'https://github.com/theappbusiness/MasterFastfile.git', branch: '3.0.0', path: 'Fastfile')
 ```
-For more detailed instructions [see our wiki](https://github.com/theappbusiness/MasterFastfile/wiki)
 
 ## Available lanes
 
@@ -52,6 +64,10 @@ For more detailed instructions [see our wiki](https://github.com/theappbusiness/
   * optionally adds icon overlay: e.g. `fastlane local_build icon_overlay:true`
   * installs provisioning profiles
   * builds an ipa
+
+## Environment variables
+
+The MasterFastile uses some standard Fastlane environment variables to be able to work out things like export methods and team IDs. Additionally, the MasterFastfile defines custom environment variables for things like UI testing. For a complete list of supported environment variables, see the [ENVIRONMENT.md](ENVIRONMENT.md) file.
 
 ## Custom Actions
 

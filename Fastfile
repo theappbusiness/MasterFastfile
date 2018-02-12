@@ -130,7 +130,7 @@ def _get_export_method()
   ENV['GYM_EXPORT_OPTIONS'].nil? ? _fallback_to_enterprise_export_method() : get_info_plist_value(path: ENV['GYM_EXPORT_OPTIONS'], key: "method")
 end
 
-def _fallback_to_enterprise_export_method()
+def _fallback_to_enterprise_export_method() # TODO Maybe we should just not fall back and simplify things, requiring the GYM_EXPORT_OPTIONS
   UI.message("Falling back to enterprise `export_method` since `GYM_EXPORT_OPTIONS` is not defined")
   "enterprise"
 end

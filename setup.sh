@@ -8,33 +8,36 @@ import_from_git(url: 'https://github.com/theappbusiness/MasterFastfile.git', pat
 
 function make_default_env_file {
   cat > .env.default <<EOF
-#This is your default environment file
-#Set environment variables used in all builds here
-#More information on available environment variables can be found here https://github.com/theappbusiness/MasterFastfile/wiki/Quick-simple-setup-using-TAB-defaults
+# This is your default environment file
+# Set environment variables used in all builds here
+# More information on available environment variables can be found here https://github.com/theappbusiness/MasterFastfile/wiki/Quick-simple-setup-using-TAB-defaults
 
-FL_PROJECT_SIGNING_PROJECT_PATH="./yourproject.xcodeproj" # Path to your project (not workspace)
-FL_HOCKEY_API_TOKEN="" #Hocky API Token
-FL_HOCKEY_OWNER_ID="" #Hockey Organisation ID (number not name)
-FL_UPDATE_PLIST_PATH="" #Path to Info.plist
-GYM_CODE_SIGNING_IDENTITY="" #Code Sign Identitify
-FL_HOCKEY_TEAMS="" #Hockey ID (number not name)
-FL_HOCKEY_NOTIFY= #Email team when new build avialable? 0 = No, 1 = Yes
-ICON_OVERLAY_ASSETS_BUNDLE="" #Path to .xcassets
-TAB_USE_TIME_FOR_BUILD_NUMBER= #Use Time and date for build number or BUILD_NUMBER environment variable (created by jenkis or team city) true = use time, false = use BUILD_NUMBER
-ITUNES_CONNECT_USERNAME="" #iTunes Connect login (usually email address)
-ITUNES_CONNECT_TEAM_ID="" #The ID of your iTunes Connect team if you're in multiple teams
-ITUNES_CONNECT_PROVIDER="" #The provider short name to be used with the iTMSTransporter to identify your team
+FL_PROJECT_SIGNING_PROJECT_PATH="./yourproject.xcodeproj" # Path to your project (not workspace) (required for distribution)
+GYM_EXPORT_OPTIONS="./YourExportOptions.plist" # Path to your export options plist (required for distribution)
+FL_UPDATE_PLIST_APP_IDENTIFIER=""  # The bundle ID to set the main app target to (required for distribution)
+FL_HOCKEY_API_TOKEN="" # Hocky API Token
+FL_HOCKEY_OWNER_ID="" # Hockey Organisation ID (number not name)
+FL_UPDATE_PLIST_PATH="" # Path to Info.plist
+GYM_CODE_SIGNING_IDENTITY="" # Code Sign Identitify
+FL_HOCKEY_TEAMS="" # Hockey ID (number not name)
+FL_HOCKEY_NOTIFY= # Email team when new build avialable? 0 = No, 1 = Yes
+ICON_OVERLAY_ASSETS_BUNDLE="" # Path to .xcassets
+TAB_USE_TIME_FOR_BUILD_NUMBER= # Use Time and date for build number or BUILD_NUMBER environment variable (created by jenkis or team city) true = use time, false = use BUILD_NUMBER
+ITUNES_CONNECT_USERNAME="" # iTunes Connect login (usually email address)
+ITUNES_CONNECT_TEAM_ID="" # The ID of your iTunes Connect team if you're in multiple teams
+ITUNES_CONNECT_PROVIDER="" # The provider short name to be used with the iTMSTransporter to identify your team
 EOF
 }
 
 function make_custom_env_file {
   env=$1
   cat > .env.$env <<EOF
-#This is your ${env} environment file
-#Set environment variables used in ${env} builds here
-GYM_SCHEME="" #Scheme name
-FL_UPDATE_PLIST_APP_IDENTIFIER="" #App Bundle Identifier
-FL_UPDATE_PLIST_DISPLAY_NAME="" #Display name of app
+# This is your ${env} environment file
+# Set environment variables used in ${env} builds here
+
+GYM_SCHEME="" # Scheme name for building the app
+FL_UPDATE_PLIST_APP_IDENTIFIER="" # App Bundle Identifier
+FL_UPDATE_PLIST_DISPLAY_NAME="" # Display name of app
 EOF
 }
 
