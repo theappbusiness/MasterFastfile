@@ -75,7 +75,7 @@ end
 
 def _setup
   ENV['SCAN_SCHEME'] = ENV['GYM_SCHEME']
-  ENV['SCAN_DEVICE'] = 'iPhone 6 (9.3)' if ENV['SCAN_DEVICE'].nil?
+  ENV['SCAN_DEVICE'] ||= 'iPhone 6 (9.3)'
   xcode_select(ENV['TAB_XCODE_PATH']) if is_ci && !ENV['TAB_XCODE_PATH'].nil?
 
   unless ENV['TAB_UI_TEST_SCHEME'].nil?
@@ -91,15 +91,17 @@ def _build_and_deploy_to_hockey
   _upload_to_hockey
 end
 
-def _set_build_number
+def _build_number
   use_timestamp = ENV['TAB_USE_TIME_FOR_BUILD_NUMBER'] || false
-  build_number =
-    if use_timestamp
-      Time.now.strftime("%y%m%d%H%M")
-    else
-      ENV['BUILD_NUMBER']
-    end
-  increment_build_number(build_number: build_number)
+  if use_timestamp
+    Time.now.strftime("%y%m%d%H%M")
+  else
+    ENV['BUILD_NUMBER']
+  end
+end
+
+def _set_build_number
+  increment_build_number(build_number: _build_number)
 end
 
 def _build_ipa
@@ -177,7 +179,7 @@ def _notify_slack
   return if ENV['FL_SLACK_CHANNEL'].to_s.strip.empty?
   hockey_download_url = lane_context[SharedValues::HOCKEY_DOWNLOAD_LINK]
   if !hockey_download_url.nil?
-    new_build_message = "A new build is available on <${hockey_download_url}|hockey>"
+    new_build_message = "A new build is available on <#{}{hockey_download_url}|hockey>"
     slack(message: new_build_message)
   else
     slack
