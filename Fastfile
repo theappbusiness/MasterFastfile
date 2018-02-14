@@ -80,7 +80,7 @@ def _setup
 
   unless ENV['TAB_UI_TEST_SCHEME'].nil?
     ENV['TAB_REPORT_FORMATS'] = 'html' if ENV['TAB_OUTPUT_TYPES'].nil?
-    ENV['TAB_UI_TEST_DEVICES'] = 'iPhone 8' if ENV['TAB_UI_TEST_DEVICES'].nil?
+    ENV['TAB_UI_TEST_DEVICES'] ||= 'iPhone 8'
   end
 end
 
