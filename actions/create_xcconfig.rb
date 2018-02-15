@@ -1,15 +1,13 @@
 module Fastlane
   module Actions
     class CreateXcconfigAction < Action
-      def self.run(params) # rubocop:disable Metrics/AbcSize
+      def self.run(params)
         filename = params[:filename]
         project = Xcodeproj::Project.open(ENV['FL_PROJECT_SIGNING_PROJECT_PATH'])
         lines = []
         project.targets.each do |target|
           profile = get_profile_for_target(target)
-          if !profile.nil? # rubocop:disable Style/NegatedIf, Style/IfUnlessModifier
-            lines.push("#{target.name}_PROFILE_SPECIFIER=#{profile}")
-          end
+          lines.push("#{target.name}_PROFILE_SPECIFIER=#{profile}") unless profile.nil?
         end
         lines.push('PROVISIONING_PROFILE_SPECIFIER=$($(TARGET_NAME)_PROFILE_SPECIFIER)')
         begin

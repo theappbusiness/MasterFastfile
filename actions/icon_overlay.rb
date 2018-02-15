@@ -7,7 +7,7 @@ module Fastlane
       ICON_OVERLAY_APP_VERSION = :ICON_OVERLAY_APP_VERSION
     end
 
-    class IconOverlayAction < Action # rubocop:disable Metrics/ClassLength
+    class IconOverlayAction < Action
       def self.run(params)
         source_path = ENV['ICON_OVERLAY_SOURCE_PATH']
         assets_path = ENV['ICON_OVERLAY_ASSETS_BUNDLE']
@@ -60,23 +60,21 @@ module Fastlane
       end
 
       def self.source_icons_directory
-        source_path = ENV['ICON_OVERLAY_SOURCE_PATH']
-        if source_path
-          source_path = File.expand_path(source_path)
-        elsif ENV['ICON_OVERLAY_ASSETS_BUNDLE']
-          source_path = File.expand_path(File.join(ENV['ICON_OVERLAY_ASSETS_BUNDLE'], 'AppIcon.appiconset'))
+        if !ENV['ICON_OVERLAY_SOURCE_PATH'].empty?
+          File.expand_path(source_path)
+        elsif !ENV['ICON_OVERLAY_ASSETS_BUNDLE'].empty?
+          File.expand_path(File.join(ENV['ICON_OVERLAY_ASSETS_BUNDLE'], 'AppIcon.appiconset'))
+        else
+          ENV['ICON_OVERLAY_SOURCE_PATH']
         end
-        source_path
       end
 
       def self.destination_icons_directory
-        destination_path = ENV['ICON_OVERLAY_ASSETS_BUNDLE']
-        if destination_path # rubocop:disable Style/ConditionalAssignment
-          destination_path = File.expand_path(File.join(destination_path, 'AppIcon.appiconset'))
+        if !ENV['ICON_OVERLAY_ASSETS_BUNDLE'].empty?
+          File.expand_path(File.join(destination_path, 'AppIcon.appiconset'))
         else
-          destination_path = File.expand_path(ENV['ICON_OVERLAY_SOURCE_PATH'])
+          File.expand_path(ENV['ICON_OVERLAY_SOURCE_PATH'])
         end
-        destination_path
       end
 
       def self.destination_for_source_path(source_path)
@@ -86,10 +84,8 @@ module Fastlane
 
       def self.overlay
         icons_dir = source_icons_directory
-        if !Dir.exist?(icons_dir) # rubocop:disable Style/NegatedIf, Style/IfUnlessModifier
-          throw "Source path for icons directory #{icons_dir} does not exist for image conversion"
-        end
-
+        source_path_error = "Source path for icons directory #{icons_dir} does not exist for image conversion"
+        throw source_path_error unless Dir.exist?(icons_dir)
         Dir.glob File.join(icons_dir, '*.png') do |source|
           destination = destination_for_source_path source
           convert(source, destination)
@@ -124,7 +120,7 @@ module Fastlane
       end
 
       def self.authors
-        []
+        ['TAB, @TheAppBusiness']
       end
 
       def self.is_supported?(_) # rubocop:disable Naming/PredicateName)
