@@ -11,7 +11,7 @@ module Fastlane
         end
         lines.push('PROVISIONING_PROFILE_SPECIFIER=$($(TARGET_NAME)_PROFILE_SPECIFIER)')
         begin
-          File.write(filename, lines.join('\n'))
+          File.write(filename, lines.join("\n")) 
         rescue => exception # rubocop:disable Style/RescueStandardError
           UI.error(exception)
         else

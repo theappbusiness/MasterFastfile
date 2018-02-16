@@ -113,7 +113,7 @@ def _build_ipa
 end
 
 def _build_with_gym
-  install_provisioning_profile
+  install_provisioning_profiles
   _update_team_id_if_necessary
   export_method = _get_export_method
   xcconfig_filename = Dir.pwd + '/TAB.release.xcconfig'
