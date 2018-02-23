@@ -1,8 +1,7 @@
 ![The App Business](./MasterFastfile.png)
 
 # MasterFastfile
-
-[![Release](https://img.shields.io/badge/release-3.0.0-green.svg)](https://github.com/theappbusiness/MasterFastfile/releases/tag/3.0.0)
+[![GitHub release](https://img.shields.io/github/release/theappbusiness/masterfastfile.svg)](https://github.com/theappbusiness/MasterFastfile/releases/latest)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/theappbusiness/MasterFastfile/blob/master/LICENSE)
 
 To setup your project to use the TAB MasterFastfile, navigate to your project root and run the following command:
@@ -16,7 +15,7 @@ Then setup your environments using the `.env` files created for you. To complete
 To use the MasterFastfile add the following command to your Fastfile:
 
 ```ruby
-import_from_git(url: 'https://github.com/theappbusiness/MasterFastfile.git', branch: '3.0.0', path: 'Fastfile')
+import_from_git(url: 'https://github.com/theappbusiness/MasterFastfile.git', branch: '3.0.1', path: 'Fastfile')
 ```
 For more detailed instructions [see our wiki](https://github.com/theappbusiness/MasterFastfile/wiki)
 
