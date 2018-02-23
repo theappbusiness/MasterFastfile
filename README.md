@@ -1,7 +1,7 @@
 ![The App Business](./MasterFastfile.png)
 
 # MasterFastfile
-[![GitHub release](https://img.shields.io/github/release/theappbusiness/masterfastfile.svg)](https://github.com/theappbusiness/MasterFastfile/releases/latest)
+[![GitHub release](https://img.shields.io/github/release/theappbusiness/masterfastfile/all.svg)](https://github.com/theappbusiness/MasterFastfile/releases/latest)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/theappbusiness/MasterFastfile/blob/master/LICENSE)
 
 To setup your project to use the TAB MasterFastfile, navigate to your project root and run the following command:
