@@ -1,0 +1,2 @@
+fastlane_version "1.55.0"
+import '../../Fastfile'

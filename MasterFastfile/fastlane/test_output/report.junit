@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<testsuites name='MasterFastfileTests.xctest' tests='2' failures='0'>
+  <testsuite name='MasterFastfileTests.MasterFastfileTests' tests='2' failures='0'>
+    <testcase classname='MasterFastfileTests.MasterFastfileTests' name='testExample' time='0.001'/>
+    <testcase classname='MasterFastfileTests.MasterFastfileTests' name='testPerformanceExample' time='0.344'/>
+  </testsuite>
+</testsuites>

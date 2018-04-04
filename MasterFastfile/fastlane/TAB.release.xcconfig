@@ -1,0 +1,4 @@
+MasterFastfile_PROFILE_SPECIFIER=Wildcard Distribution Profile
+MasterFastfile WatchKit App_PROFILE_SPECIFIER=Wildcard Distribution Profile
+MasterFastfile WatchKit Extension_PROFILE_SPECIFIER=Wildcard Distribution Profile
+PROVISIONING_PROFILE_SPECIFIER=$($(TARGET_NAME)_PROFILE_SPECIFIER)
