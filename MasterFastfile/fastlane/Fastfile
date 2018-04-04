@@ -2,11 +2,12 @@ fastlane_version "1.55.0"
 import '../../Fastfile'
 
 # Run `fastlane regression --env test`
+# Running the test env will test different things to running the prod env
 lane :regression do
 	test
 	ui_test
 	deploy_to_hockey_no_test
 	deploy_to_hockey
 	local_build
-	deploy_to_test_flight
+	deploy_to_test_flight # This should fail gracefully as there's no team id set etc
 end
