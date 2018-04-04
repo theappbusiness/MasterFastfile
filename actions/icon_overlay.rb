@@ -60,9 +60,9 @@ module Fastlane
       end
 
       def self.source_icons_directory
-        if !ENV['ICON_OVERLAY_SOURCE_PATH'].empty?
+        if !ENV['ICON_OVERLAY_SOURCE_PATH'].to_s.empty?
           File.expand_path(source_path)
-        elsif !ENV['ICON_OVERLAY_ASSETS_BUNDLE'].empty?
+        elsif !ENV['ICON_OVERLAY_ASSETS_BUNDLE'].to_s.empty?
           File.expand_path(File.join(ENV['ICON_OVERLAY_ASSETS_BUNDLE'], 'AppIcon.appiconset'))
         else
           ENV['ICON_OVERLAY_SOURCE_PATH']
@@ -70,8 +70,8 @@ module Fastlane
       end
 
       def self.destination_icons_directory
-        if !ENV['ICON_OVERLAY_ASSETS_BUNDLE'].empty?
-          File.expand_path(File.join(destination_path, 'AppIcon.appiconset'))
+        if !ENV['ICON_OVERLAY_ASSETS_BUNDLE'].to_s.empty?
+          File.expand_path(File.join(ENV['ICON_OVERLAY_ASSETS_BUNDLE'], 'AppIcon.appiconset'))
         else
           File.expand_path(ENV['ICON_OVERLAY_SOURCE_PATH'])
         end
