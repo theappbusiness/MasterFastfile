@@ -5,7 +5,8 @@
 - Multiple code-level changes for addressing Rubocop errors.
 - Provfiles are no longer used, instead you should define export options.
 - All provisioning profiles included in the `fastlane` directory now get installed automatically.
-- Updated `setup.sh`
+- Updated `setup.sh`.
+- Fixed an issue with including a Hockey download link when messaging to Slack.
 
 ## [3.0.1](https://github.com/theappbusiness/MasterFastfile/releases/tag/3.0.1)
 ### Added
