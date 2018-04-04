@@ -1,0 +1,7 @@
+language: ruby
+
+rvm:
+  - 2.5.0
+
+script:
+  - rubocop
