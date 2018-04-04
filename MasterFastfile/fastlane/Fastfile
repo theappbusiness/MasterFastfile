@@ -1,2 +1,12 @@
 fastlane_version "1.55.0"
 import '../../Fastfile'
+
+# Run `fastlane regression --env test`
+lane :regression do
+	test
+	ui_test
+	deploy_to_hockey_no_test
+	deploy_to_hockey
+	local_build
+	deploy_to_test_flight
+end
