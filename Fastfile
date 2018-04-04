@@ -164,7 +164,7 @@ end
 def _create_change_log
   cmd = "git log --after={1.day.ago} --pretty=format:'%an%x09%h%x09%cd%x09%s' --date=relative"
   output = `#{cmd}`
-  output.length.empty? ? 'No Changes' : output
+  output.to_s.empty? ? 'No Changes' : output
 end
 
 def _upload_to_test_flight
