@@ -3,5 +3,9 @@ language: ruby
 rvm:
   - 2.5.0
 
+before_install:
+  - gem install bundler --no-document
+  - bundle install
+
 script:
-  - rubocop
+  - bundle exec rubocop
