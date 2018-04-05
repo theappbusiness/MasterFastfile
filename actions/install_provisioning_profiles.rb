@@ -39,7 +39,7 @@ module Fastlane
         ]
       end
 
-      def self.is_supported?(_) # rubocop:disable Naming/PredicateName)
+      def self.is_supported?(_) # rubocop:disable Naming/PredicateName
         true
       end
     end
