@@ -4,14 +4,16 @@
 <dict>
 	<key>method</key>
 	<string>enterprise</string>
+	<key>teamID</key>
+	<string>VG9R2N57GC</string>
 	<key>provisioningProfiles</key>
 	<dict>
 		<key>com.theappbusiness.MasterFastfile</key>
-		<string>Wildcard Distribution Profile</string>
+		<string>MasterFastfile Wildcard Distribution</string>
 		<key>com.theappbusiness.MasterFastfile.watchkitapp</key>
-		<string>Wildcard Distribution Profile</string>
+		<string>MasterFastfile Wildcard Distribution</string>
 		<key>com.theappbusiness.MasterFastfile.watchkitapp.watchkitextension</key>
-		<string>Wildcard Distribution Profile</string>
+		<string>MasterFastfile Wildcard Distribution</string>
 	</dict>
 </dict>
 </plist>

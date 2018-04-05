@@ -49,6 +49,11 @@ Runs all unit tests before deploying to TestFlight.
 fastlane local_build
 ```
 Creates a local IPA build without running any tests.
+### regression
+```
+fastlane regression
+```
+
 
 ----
 
