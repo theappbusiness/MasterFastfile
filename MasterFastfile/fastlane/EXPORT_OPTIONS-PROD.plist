@@ -4,6 +4,8 @@
 <dict>
 	<key>method</key>
 	<string>enterprise</string>
+	<key>teamID</key>
+	<string>VG9R2N57GC</string>
 	<key>provisioningProfiles</key>
 	<dict>
 		<key>com.theappbusiness.MasterFastfile</key>
