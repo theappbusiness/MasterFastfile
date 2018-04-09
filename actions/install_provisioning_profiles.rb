@@ -1,7 +1,7 @@
 module Fastlane
   module Actions
     class InstallProvisioningProfilesAction < Action
-      def self.run(_)
+      def self.run(_) # rubocop:disable Naming/UncommunicativeMethodParamName
         profile_paths = Dir.glob('./**/*.mobileprovision')
         if profile_paths.empty?
           UI.message('Skipping installing provisioning profiles since no profiles were found.')
@@ -39,7 +39,7 @@ module Fastlane
         ]
       end
 
-      def self.is_supported?(_) # rubocop:disable Naming/PredicateName)
+      def self.is_supported?(_) # rubocop:disable Naming/PredicateName, Naming/UncommunicativeMethodParamName
         true
       end
     end

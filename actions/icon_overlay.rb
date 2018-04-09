@@ -123,7 +123,7 @@ module Fastlane
         ['TAB, @TheAppBusiness']
       end
 
-      def self.is_supported?(_) # rubocop:disable Naming/PredicateName)
+      def self.is_supported?(_) # rubocop:disable Naming/PredicateName, Naming/UncommunicativeMethodParamName
         platform == :ios
       end
     end
