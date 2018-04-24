@@ -56,7 +56,7 @@ end
 
 desc 'Creates a local IPA build without running any tests.'
 lane :local_build do |options|
-  icon_overlay(version: get_version_number) if options[:icon_overlay]
+  icon_overlay(version: _get_project_build_number) if options[:icon_overlay]
   _build_ipa
 end
 
@@ -85,7 +85,7 @@ def _setup
 end
 
 def _build_and_deploy_to_hockey
-  icon_overlay(version: get_version_number)
+  icon_overlay(version: _get_project_build_number)
   _set_build_number
   _build_ipa
   _upload_to_hockey
@@ -98,6 +98,10 @@ def _build_number
   else
     ENV['BUILD_NUMBER']
   end
+end
+
+def _get_project_build_number
+  ENV.include?('TAB_PRIMARY_TARGET') ? get_version_number(target: ENV['TAB_PRIMARY_TARGET']) : get_version_number
 end
 
 def _set_build_number
