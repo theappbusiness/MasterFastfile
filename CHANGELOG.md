@@ -7,6 +7,7 @@
 - All provisioning profiles included in the `fastlane` directory now get installed automatically.
 - Updated `setup.sh`.
 - Fixed an issue with including a Hockey download link when messaging to Slack.
+- Fixed an issue where using `get_current_version` with the latest version of Fastlane would cause a prompt for the target.
 
 ## [3.0.1](https://github.com/theappbusiness/MasterFastfile/releases/tag/3.0.1)
 ### Added
