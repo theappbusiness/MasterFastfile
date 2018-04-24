@@ -53,7 +53,7 @@ For more detailed instructions [see our wiki](https://github.com/theappbusiness/
   * builds an ipa
 
 ## Troubleshoot
-* `TAB_TARGET_FOR_BUILD_NUMBER` if you are using multiple target in your project and it stops building for that reason, just give in the name of the target which holds the normal build number of your project
+* `TAB_PRIMARY_TARGET` if you are using multiple target in your project and it stops building for that reason, just give in the name of the target which holds the normal build number of your project
 
 ## Custom Actions
 
