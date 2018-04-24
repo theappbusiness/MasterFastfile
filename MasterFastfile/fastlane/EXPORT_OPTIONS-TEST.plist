@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>method</key>
+	<string>enterprise</string>
+	<key>teamID</key>
+	<string>VG9R2N57GC</string>
+	<key>provisioningProfiles</key>
+	<dict>
+		<key>com.theappbusiness.MasterFastfile</key>
+		<string>MasterFastfile Wildcard Distribution</string>
+		<key>com.theappbusiness.MasterFastfile.watchkitapp</key>
+		<string>MasterFastfile Wildcard Distribution</string>
+		<key>com.theappbusiness.MasterFastfile.watchkitapp.watchkitextension</key>
+		<string>MasterFastfile Wildcard Distribution</string>
+	</dict>
+</dict>
+</plist>

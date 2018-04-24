@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="fastlane.lanes">
+    
+    
+    
+      
+      <testcase classname="fastlane.lanes" name="00: Verifying fastlane version" time="0.018564">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="01: Verifying fastlane version" time="0.003595">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="02: default_platform" time="0.002955">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="03: get_version_number" time="0.73168">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="04: icon_overlay" time="0.004355">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="05: update_app_identifier" time="0.00971">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="06: update_info_plist" time="0.038445">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="07: install_provisioning_profiles" time="0.037128">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="08: get_info_plist_value" time="0.006662">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="09: get_info_plist_value" time="0.006698">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="10: create_xcconfig" time="0.124147">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="11: gym" time="136.859723">
+        
+      </testcase>
+    
+  </testsuite>
+</testsuites>
