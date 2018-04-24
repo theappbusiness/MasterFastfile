@@ -101,7 +101,7 @@ def _build_number
 end
 
 def _get_project_build_number
-  return ENV.include?('TAB_TARGET_FOR_BUILD_NUMBER') ? get_version_number(target: ENV['TAB_TARGET_FOR_BUILD_NUMBER']) : get_version_number
+  ENV.include?('TAB_TARGET_FOR_BUILD_NUMBER') ? get_version_number(target: ENV['TAB_TARGET_FOR_BUILD_NUMBER']) : get_version_number
 end
 
 def _set_build_number
