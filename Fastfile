@@ -56,13 +56,13 @@ end
 
 desc 'Creates a local IPA build without running any tests.'
 lane :local_build do |options|
-  icon_overlay(version: get_version_number) if options[:icon_overlay]
+  icon_overlay(version: _get_project_build_number) if options[:icon_overlay]
   _build_ipa
 end
 
 # --------- After all lanes have run --------- #
 
-after_all do |lane|
+after_all do
   _notify_slack
 end
 
@@ -78,14 +78,14 @@ def _setup
   ENV['SCAN_DEVICE'] ||= 'iPhone 6 (9.3)'
   xcode_select(ENV['TAB_XCODE_PATH']) if is_ci && !ENV['TAB_XCODE_PATH'].nil?
 
-  unless ENV['TAB_UI_TEST_SCHEME'].nil?
+  unless ENV['TAB_UI_TEST_SCHEME'].nil? # rubocop:disable Style/GuardClause
     ENV['TAB_REPORT_FORMATS'] = 'html' if ENV['TAB_OUTPUT_TYPES'].nil?
     ENV['TAB_UI_TEST_DEVICES'] ||= 'iPhone 8'
   end
 end
 
 def _build_and_deploy_to_hockey
-  icon_overlay(version: get_version_number)
+  icon_overlay(version: _get_project_build_number)
   _set_build_number
   _build_ipa
   _upload_to_hockey
@@ -94,10 +94,14 @@ end
 def _build_number
   use_timestamp = ENV['TAB_USE_TIME_FOR_BUILD_NUMBER'] || false
   if use_timestamp
-    Time.now.strftime("%y%m%d%H%M")
+    Time.now.strftime("%y%m%d%H%M") # rubocop:disable Style/StringLiterals
   else
     ENV['BUILD_NUMBER']
   end
+end
+
+def _get_project_build_number
+  ENV.include?('TAB_PRIMARY_TARGET') ? get_version_number(target: ENV['TAB_PRIMARY_TARGET']) : get_version_number
 end
 
 def _set_build_number
@@ -113,7 +117,7 @@ def _build_ipa
 end
 
 def _build_with_gym
-  install_provisioning_profile
+  install_provisioning_profiles
   _update_team_id_if_necessary
   export_method = _get_export_method
   xcconfig_filename = Dir.pwd + '/TAB.release.xcconfig'
@@ -164,7 +168,7 @@ end
 def _create_change_log
   cmd = "git log --after={1.day.ago} --pretty=format:'%an%x09%h%x09%cd%x09%s' --date=relative"
   output = `#{cmd}`
-  output.length.empty? ? 'No Changes' : output
+  output.to_s.empty? ? 'No Changes' : output
 end
 
 def _upload_to_test_flight
@@ -179,7 +183,7 @@ def _notify_slack
   return if ENV['FL_SLACK_CHANNEL'].to_s.strip.empty?
   hockey_download_url = lane_context[SharedValues::HOCKEY_DOWNLOAD_LINK]
   if !hockey_download_url.nil?
-    new_build_message = "A new build is available on <#{}{hockey_download_url}|hockey>"
+    new_build_message = "A new build is available on <#{hockey_download_url}|hockey>"
     slack(message: new_build_message)
   else
     slack

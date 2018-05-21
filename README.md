@@ -15,7 +15,7 @@ Then setup your environments using the `.env` files created for you. To complete
 To use the MasterFastfile add the following command to your Fastfile:
 
 ```ruby
-import_from_git(url: 'https://github.com/theappbusiness/MasterFastfile.git', branch: '3.0.1', path: 'Fastfile')
+import_from_git(url: 'https://github.com/theappbusiness/MasterFastfile.git', branch: '4.0.0', path: 'Fastfile')
 ```
 For more detailed instructions [see our wiki](https://github.com/theappbusiness/MasterFastfile/wiki)
 
@@ -51,6 +51,9 @@ For more detailed instructions [see our wiki](https://github.com/theappbusiness/
   * optionally adds icon overlay: e.g. `fastlane local_build icon_overlay:true`
   * installs provisioning profiles
   * builds an ipa
+
+## Troubleshoot
+* `TAB_PRIMARY_TARGET` if you are using multiple target in your project and it stops building for that reason, just give in the name of the target which holds the normal build number of your project
 
 ## Custom Actions
 
