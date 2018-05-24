@@ -20,7 +20,7 @@ GYM_CODE_SIGNING_IDENTITY="" #Code Sign Identitify
 FL_HOCKEY_TEAMS="" #Hockey ID (number not name)
 FL_HOCKEY_NOTIFY= #Email team when new build avialable? 0 = No, 1 = Yes
 ICON_OVERLAY_ASSETS_BUNDLE="" #Path to .xcassets
-TAB_USE_TIME_FOR_BUILD_NUMBER= #Use Time and date for build number or BUILD_NUMBER environment variable (created by jenkis or team city) true = use time, false = use BUILD_NUMBER
+TAB_USE_TIME_FOR_BUILD_NUMBER=true #Use Time and date for build number or BUILD_NUMBER environment variable (created by jenkis or team city) true = use time, false = use BUILD_NUMBER
 ITUNES_CONNECT_USERNAME="" #iTunes Connect login (usually email address)
 ITUNES_CONNECT_TEAM_ID="" #The ID of your iTunes Connect team if you're in multiple teams
 ITUNES_CONNECT_PROVIDER="" #The provider short name to be used with the iTMSTransporter to identify your team
