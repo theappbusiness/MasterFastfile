@@ -92,7 +92,7 @@ def _build_and_deploy_to_hockey
 end
 
 def _build_number
-  use_timestamp = ENV['TAB_USE_TIME_FOR_BUILD_NUMBER'].to_s == 'true' || false
+  use_timestamp = ENV['TAB_USE_TIME_FOR_BUILD_NUMBER'].to_s.downcase == 'true' || false
   if use_timestamp
     Time.now.strftime("%y%m%d%H%M") # rubocop:disable Style/StringLiterals
   else
