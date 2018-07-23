@@ -109,9 +109,10 @@ def _set_build_number
 end
 
 def _build_ipa
+  app_id = ENV['FL_UPDATE_APP_IDENTIFIER'] || ENV['FL_UPDATE_PLIST_APP_IDENTIFIER']
   update_app_identifier(xcodeproj: ENV['FL_UPDATE_PLIST_PROJECT_PATH'],
-                        plist_path: ENV['FL_UPDATE_PLIST_PATH'],
-                        app_identifier: ENV['FL_UPDATE_PLIST_APP_IDENTIFIER'])
+                        plist_path: ENV['FL_UPDATE_PLIST_PATH']
+                        app_identifier: app_id)
   update_info_plist
   _build_with_gym
 end
