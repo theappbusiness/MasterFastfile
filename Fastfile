@@ -92,7 +92,7 @@ def _build_and_deploy_to_hockey
 end
 
 def _build_number
-  use_timestamp = ENV['TAB_USE_TIME_FOR_BUILD_NUMBER'] || false
+  use_timestamp = ENV['TAB_USE_TIME_FOR_BUILD_NUMBER'].to_s.downcase == 'true' || false # rubocop:disable Performance/Casecmp
   if use_timestamp
     Time.now.strftime("%y%m%d%H%M") # rubocop:disable Style/StringLiterals
   else
@@ -181,8 +181,10 @@ end
 def _notify_slack
   return if ENV['FL_SLACK_CHANNEL'].to_s.strip.empty?
   hockey_download_url = lane_context[SharedValues::HOCKEY_DOWNLOAD_LINK]
+  build_number = _build_number
   if !hockey_download_url.nil?
-    new_build_message = "A new build is available on <#{hockey_download_url}|hockey>"
+    message_prefix = build_number.to_s.empty? ? 'A new build' : "Build #{build_number}"
+    new_build_message = "#{message_prefix} is available on <#{hockey_download_url}|hockey>"
     slack(message: new_build_message)
   else
     slack
