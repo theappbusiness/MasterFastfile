@@ -1,4 +1,4 @@
-fastlane_version '2.30.1'
+fastlane_version '2.86.0'
 default_platform :ios
 
 # --------- Before any lane runs --------- #
@@ -101,7 +101,7 @@ def _build_number
 end
 
 def _get_project_build_number
-  ENV.include?('TAB_PRIMARY_TARGET') ? get_version_number(target: ENV['TAB_PRIMARY_TARGET']) : get_version_number
+  get_version_number(target: ENV['TAB_PRIMARY_TARGET'])
 end
 
 def _set_build_number
