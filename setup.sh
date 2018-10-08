@@ -13,16 +13,20 @@ function make_default_env_file {
 #More information on available environment variables can be found here https://github.com/theappbusiness/MasterFastfile/wiki/Quick-simple-setup-using-TAB-defaults
 
 FL_PROJECT_SIGNING_PROJECT_PATH="./yourproject.xcodeproj" # Path to your project (not workspace)
+FL_UPDATE_PLIST_APP_IDENTIFIER="" #The app identifier you want your main target (the host app) to have
+GYM_CODE_SIGNING_IDENTITY="" #Code Sign Identitify
+GYM_EXPORT_OPTIONS="" #The export options, used for finding the export method and provisioning
+
 FL_HOCKEY_API_TOKEN="" #Hocky API Token
 FL_HOCKEY_OWNER_ID="" #Hockey Organisation ID (number not name)
 FL_UPDATE_PLIST_PATH="" #Path to Info.plist
-GYM_CODE_SIGNING_IDENTITY="" #Code Sign Identitify
 FL_HOCKEY_TEAMS="" #Hockey ID (number not name)
 FL_HOCKEY_NOTIFY= #Email team when new build avialable? 0 = No, 1 = Yes
+
 ICON_OVERLAY_ASSETS_BUNDLE="" #Path to .xcassets
 TAB_USE_TIME_FOR_BUILD_NUMBER=true #Use Time and date for build number or BUILD_NUMBER environment variable (created by jenkis or team city) true = use time, false = use BUILD_NUMBER
 ITUNES_CONNECT_USERNAME="" #iTunes Connect login (usually email address)
-ITUNES_CONNECT_TEAM_ID="" #The ID of your iTunes Connect team if you're in multiple teams
+ITUNES_CONNECT_TEAM_ID="" #The ID of your iTunes Connect team if you're in multiple teams https://github.com/fastlane/fastlane/issues/4301#issuecomment-253461017
 ITUNES_CONNECT_PROVIDER="" #The provider short name to be used with the iTMSTransporter to identify your team
 EOF
 }
