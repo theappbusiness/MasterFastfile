@@ -161,7 +161,7 @@ end
 def _upload_to_hockey
   custom_notes = ENV['TAB_HOCKEY_RELEASE_NOTES'] || ''
   notes = custom_notes == '' ? _create_change_log : custom_notes
-  hockey(notes_type: '0', notes: notes)
+  hockey(notes_type: '0', notes: notes, bypass_cdn: true)
 end
 
 def _create_change_log
