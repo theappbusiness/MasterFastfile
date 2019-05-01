@@ -1,6 +1,22 @@
 # CHANGELOG
 
-## [4.0.0]("https://github.com/theappbusiness/MasterFastfile/releases/tag/4.0.0")
+## [5.0.1](https://github.com/theappbusiness/MasterFastfile/releases/tag/5.0.1)
+
+Fixes an issue that was causing hockey uploads to fail.
+
+## [5.0.0](https://github.com/theappbusiness/MasterFastfile/releases/tag/5.0.0)
+
+`TAB_PRIMARY_TARGET` environment variable is now mandatory for projects using Icon Overlay.
+
+As of v 2.86.0, fastlane requires a target for get_version_number, used for icon badging.
+
+See discussion here: fastlane/fastlane#12177. See PR #64 for details.
+
+Use intended Bundle ID environment setting for each action
+
+Distinguishing between `FL_UPDATE_PLIST_APP_IDENTIFIER` and `FL_UPDATE_APP_IDENTIFIER`. See PR #63 for details.
+
+## [4.0.0](https://github.com/theappbusiness/MasterFastfile/releases/tag/4.0.0)
 ### Changed
 - Multiple code-level changes for addressing Rubocop errors.
 - Provfiles are no longer used, instead you should define export options.
