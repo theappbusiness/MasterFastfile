@@ -1,4 +1,4 @@
-fastlane_version '2.86.0'
+fastlane_version '2.82.0'
 default_platform :ios
 
 # --------- Before any lane runs --------- #
