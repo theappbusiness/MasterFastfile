@@ -1,4 +1,4 @@
-fastlane_version '2.30.1'
+fastlane_version '2.86.0'
 default_platform :ios
 
 # --------- Before any lane runs --------- #
@@ -92,7 +92,7 @@ def _build_and_deploy_to_hockey
 end
 
 def _build_number
-  use_timestamp = ENV['TAB_USE_TIME_FOR_BUILD_NUMBER'] || false
+  use_timestamp = ENV['TAB_USE_TIME_FOR_BUILD_NUMBER'].to_s.downcase == 'true' || false # rubocop:disable Performance/Casecmp
   if use_timestamp
     Time.now.strftime("%y%m%d%H%M") # rubocop:disable Style/StringLiterals
   else
@@ -101,7 +101,7 @@ def _build_number
 end
 
 def _get_project_build_number
-  ENV.include?('TAB_PRIMARY_TARGET') ? get_version_number(target: ENV['TAB_PRIMARY_TARGET']) : get_version_number
+  get_version_number(target: ENV['TAB_PRIMARY_TARGET'])
 end
 
 def _set_build_number
@@ -110,8 +110,7 @@ end
 
 def _build_ipa
   update_app_identifier(xcodeproj: ENV['FL_UPDATE_PLIST_PROJECT_PATH'],
-                        plist_path: ENV['FL_UPDATE_PLIST_PATH'],
-                        app_identifier: ENV['FL_UPDATE_PLIST_APP_IDENTIFIER'])
+                        plist_path: ENV['FL_UPDATE_PLIST_PATH'])
   update_info_plist
   _build_with_gym
 end
@@ -162,7 +161,7 @@ end
 def _upload_to_hockey
   custom_notes = ENV['TAB_HOCKEY_RELEASE_NOTES'] || ''
   notes = custom_notes == '' ? _create_change_log : custom_notes
-  hockey(notes_type: '0', notes: notes)
+  hockey(notes_type: '0', notes: notes, bypass_cdn: true)
 end
 
 def _create_change_log
@@ -182,8 +181,10 @@ end
 def _notify_slack
   return if ENV['FL_SLACK_CHANNEL'].to_s.strip.empty?
   hockey_download_url = lane_context[SharedValues::HOCKEY_DOWNLOAD_LINK]
+  build_number = _build_number
   if !hockey_download_url.nil?
-    new_build_message = "A new build is available on <#{hockey_download_url}|hockey>"
+    message_prefix = build_number.to_s.empty? ? 'A new build' : "Build #{build_number}"
+    new_build_message = "#{message_prefix} is available on <#{hockey_download_url}|hockey>"
     slack(message: new_build_message)
   else
     slack
