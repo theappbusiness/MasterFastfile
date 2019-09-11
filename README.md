@@ -25,7 +25,7 @@ For more detailed instructions [see our wiki](https://github.com/theappbusiness/
   * runs tests
 * `ui_test`
   * runs ui tests
-* `deploy_to_hockey`
+* `deploy_to_app_center`
   * runs tests
   * sets build number
   * installs provisioning profiles (if any are included in your Fastlane directory)
@@ -33,7 +33,7 @@ For more detailed instructions [see our wiki](https://github.com/theappbusiness/
   * builds and archives project
   * generates changelog from git commits
   * uploads app to hockey
-* `deploy_to_hockey_no_test`
+* `deploy_to_app_center_no_test`
   * sets build number
   * adds build info to app icon
   * installs provisioning profiles
@@ -83,6 +83,9 @@ The MasterFastfile uses whichever export options you have set for the `GYM_EXPOR
 \*It's recommended to do this at least once anyway. You'll know for sure whether you have your code signing set up correctly, which will help debug issues you might encounter while using Fastlane.
 
 ## Dependencies
+
+### App Center plugin
+Add the app center plugin to your fastlane setup for the app center lanes. Follow the guide [here](https://github.com/microsoft/fastlane-plugin-appcenter)
 
 ### Imagemagick
 Install using brew
