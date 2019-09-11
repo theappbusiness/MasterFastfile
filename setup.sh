@@ -12,8 +12,13 @@ function make_default_env_file {
 #Set environment variables used in all builds here
 #More information on available environment variables can be found here https://github.com/theappbusiness/MasterFastfile/wiki/Quick-simple-setup-using-TAB-defaults
 
-GYM_EXPORT_OPTIONS="" # Path to export options plist
-GYM_CODE_SIGNING_IDENTITY=""" #Code Sign Identity
+FL_PROJECT_PROVISIONING_PROJECT_PATH="" #Path to project to update provisioning on
+FL_PROJECT_PROVISIONING_PROFILE_FILE="" #Path to provisioning profile to use for signing
+FL_PROJECT_PROVISIONING_PROFILE_TARGET_FILTER="" #matches name or type of a target
+FL_PROJECT_PROVISIONING_PROFILE_BUILD_CONFIGURATION="" #Optional specifies configurations to apply to, default is all
+FL_PROJECT_PROVISIONING_CODE_SIGN_IDENTITY="" #Code signing identity to use
+FL_PROJECT_TEAM_ID="" #Project team id
+GYM_EXPORT_METHOD="" #Export method i.e. app-store, ad-hoc, package, enterprise, development, developer-id
 
 FL_PROJECT_SIGNING_PROJECT_PATH="" # Path to xcode project to sign
 FL_UPDATE_PLIST_PATH="" #Path to Info.plist of application
