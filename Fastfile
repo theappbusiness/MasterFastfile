@@ -28,17 +28,17 @@ lane :ui_test do
        scheme: ENV['TAB_UI_TEST_SCHEME'])
 end
 
-desc 'Runs all unit tests before deploying to HockeyApp.'
-lane :deploy_to_hockey do
+desc 'Runs all unit tests before deploying to App Center.'
+lane :deploy_to_app_center do
   _setup
   scan
-  _build_and_deploy_to_hockey
+  _build_and_deploy_to_app_center
 end
 
-desc 'Deploys to HockeyApp without running any tests.'
-lane :deploy_to_hockey_no_test do
+desc 'Deploys to App Center without running any tests.'
+lane :deploy_to_app_center_no_test do
   _setup
-  _build_and_deploy_to_hockey
+  _build_and_deploy_to_app_center
 end
 
 desc 'Runs all unit tests before deploying to TestFlight.'
@@ -75,7 +75,7 @@ end
 
 def _setup
   ENV['SCAN_SCHEME'] = ENV['GYM_SCHEME']
-  ENV['SCAN_DEVICE'] ||= 'iPhone 6 (9.3)'
+  ENV['SCAN_DEVICE'] ||= 'iPhone 6 (12.0)'
   xcode_select(ENV['TAB_XCODE_PATH']) if is_ci && !ENV['TAB_XCODE_PATH'].nil?
 
   unless ENV['TAB_UI_TEST_SCHEME'].nil? # rubocop:disable Style/GuardClause
@@ -84,11 +84,11 @@ def _setup
   end
 end
 
-def _build_and_deploy_to_hockey
+def _build_and_deploy_to_app_center
   icon_overlay(version: _get_project_build_number)
   _set_build_number
   _build_ipa
-  _upload_to_hockey
+  _upload_to_app_center
 end
 
 def _build_number
@@ -159,10 +159,12 @@ def _get_team_id
   team_id
 end
 
-def _upload_to_hockey
+def _upload_to_app_center
   custom_notes = ENV['TAB_HOCKEY_RELEASE_NOTES'] || ''
   notes = custom_notes == '' ? _create_change_log : custom_notes
-  hockey(notes_type: '0', notes: notes, bypass_cdn: true)
+  appcenter_upload(
+    release_notes: notes
+  )
 end
 
 def _create_change_log
@@ -181,11 +183,11 @@ end
 
 def _notify_slack
   return if ENV['FL_SLACK_CHANNEL'].to_s.strip.empty?
-  hockey_download_url = lane_context[SharedValues::HOCKEY_DOWNLOAD_LINK]
+  app_center_download_url = lane_context[SharedValues::APPCENTER_BUILD_INFORMATION]
   build_number = _build_number
-  if !hockey_download_url.nil?
+  if !app_center_download_url.nil?
     message_prefix = build_number.to_s.empty? ? 'A new build' : "Build #{build_number}"
-    new_build_message = "#{message_prefix} is available on <#{hockey_download_url}|hockey>"
+    new_build_message = "#{message_prefix} is available on <#{app_center_download_url}|app center>"
     slack(message: new_build_message)
   else
     slack
