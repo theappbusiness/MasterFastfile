@@ -38,7 +38,7 @@ TAB_SLACK_WEBHOOK_URL="" #Slack webhook for posting build information
 ICON_OVERLAY_ASSETS_BUNDLE="" #Path to .xcassets containing AppIcon. If this variable exists build info will be added to the app icon
 
 APPCENTER_API_TOKEN="" #Used to upload builds to app center
-APPCENTER_OWNER_NAME=""  # when you're on your organization's page in AppCenter, this is the part of the URL slug after `orgs`: `https://appcenter.ms/orgs/<owner_name>/applications`
+APPCENTER_OWNER_NAME=""  # when you're on your organization's page in AppCenter, this is the part of the URL slug after orgs: https://appcenter.ms/orgs/<owner_name>/applications
 
 ITUNES_CONNECT_USERNAME="" #iTunes Connect login (usually email address)
 ITUNES_CONNECT_TEAM_ID="" #The ID of your iTunes Connect team if you're in multiple teams https://github.com/fastlane/fastlane/issues/4301#issuecomment-253461017
