@@ -14,7 +14,10 @@ desc 'It\'s not recommended to include UI tests in this scheme, instead run the 
 lane :test do
   _setup
   skip_slack = ENV['SCAN_SLACK_CHANNEL'].to_s.strip.empty?
-  scan(skip_slack: skip_slack)
+  scan(
+    skip_slack: skip_slack,
+    devices: ENV['TAB_UNIT_TEST_DEVICE'] || ['iPhone 8']
+  )
 end
 
 desc 'Runs UI tests that are included in the scheme.'
@@ -22,10 +25,36 @@ desc 'Environment variables to use: `TAB_UI_TEST_DEVICES`, `TAB_REPORT_FORMATS`,
 lane :ui_test do
   _setup
   skip_slack = ENV['SCAN_SLACK_CHANNEL'].to_s.strip.empty?
-  scan(skip_slack: skip_slack,
-       devices: ENV['TAB_UI_TEST_DEVICES'],
-       output_types: ENV['TAB_REPORT_FORMATS'],
-       scheme: ENV['TAB_UI_TEST_SCHEME'])
+
+  max_test_try_count = (ENV['MULTI_SCAN_TRY_COUNT'] || "1").to_i
+  test_run_block = lambda do |testrun_info|
+    failed_test_count = testrun_info[:failed].size
+
+    if failed_test_count > 0
+      try_attempt = testrun_info[:try_count]
+      if try_attempt < max_test_try_count
+        UI.header('Not all UI tests have passed. Attempting re-run of failed...')
+      else
+        UI.important('Not all UI tests have passed and the maximum try count has been reached.')
+      end
+
+      UI.message("testrun_info: #{testrun_info}")
+    end
+  end
+
+  result = multi_scan(
+    skip_slack: skip_slack,
+    devices: ENV['TAB_UI_TEST_DEVICES'].split(':'),
+    output_types: ENV['TAB_REPORT_FORMATS'],
+    scheme: ENV['TAB_UI_TEST_SCHEME'],
+    try_count: max_test_try_count,
+    fail_build: true,
+    testrun_completed_block: test_run_block,
+    parallel_testrun_count: (ENV['MULTI_SCAN_PARALLEL_WORKER_COUNT'] || "4").to_i
+  )
+  unless result[:failed_testcount].zero?
+    UI.message("There are #{result[:failed_testcount]} legitimate failing tests")
+  end
 end
 
 desc 'Runs all unit tests before deploying to App Center.'
@@ -75,12 +104,11 @@ end
 
 def _setup
   ENV['SCAN_SCHEME'] = ENV['GYM_SCHEME']
-  ENV['SCAN_DEVICE'] ||= 'iPhone 6 (12.0)'
   xcode_select(ENV['TAB_XCODE_PATH']) if is_ci && !ENV['TAB_XCODE_PATH'].nil?
 
   unless ENV['TAB_UI_TEST_SCHEME'].nil? # rubocop:disable Style/GuardClause
     ENV['TAB_REPORT_FORMATS'] = 'html' if ENV['TAB_OUTPUT_TYPES'].nil?
-    ENV['TAB_UI_TEST_DEVICES'] ||= 'iPhone 8'
+    ENV['TAB_UI_TEST_DEVICES'] ||= ['iPhone 8']
   end
 end
 
