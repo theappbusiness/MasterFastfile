@@ -43,7 +43,7 @@ end
 
 desc 'Runs all unit tests before deploying to TestFlight.'
 lane :deploy_to_test_flight do
-  if _get_export_method == 'app-store'
+  if ENV['GYM_EXPORT_METHOD'] == 'app-store'
     _setup
     scan
     _set_build_number
