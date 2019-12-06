@@ -107,7 +107,7 @@ def _setup
   xcode_select(ENV['TAB_XCODE_PATH']) if is_ci && !ENV['TAB_XCODE_PATH'].nil?
 
   unless ENV['TAB_UI_TEST_SCHEME'].nil? # rubocop:disable Style/GuardClause
-    ENV['TAB_REPORT_FORMATS'] = 'html' if ENV['TAB_OUTPUT_TYPES'].nil?
+    ENV['TAB_REPORT_FORMATS'] = 'html' if ENV['TAB_REPORT_FORMATS'].nil?
     ENV['TAB_UI_TEST_DEVICES'] ||= ['iPhone 8']
   end
 end
