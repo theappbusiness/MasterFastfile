@@ -154,7 +154,8 @@ def _build_with_gym
 end
 
 def _configuration
-  return ENV['GYM_EXPORT_OPTIONS'].nil? ? "Release" : get_info_plist_value(path: ENV['GYM_EXPORT_OPTIONS'], key: 'configuration')
+  value = get_info_plist_value(path: ENV['GYM_EXPORT_OPTIONS'], key: 'configuration')
+  return value.nil? ? "Release" : value
 end
 
 def _get_export_method
