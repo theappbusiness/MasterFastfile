@@ -150,7 +150,11 @@ def _build_with_gym
   export_method = _get_export_method
   xcconfig_filename = Dir.pwd + '/TAB.release.xcconfig'
   create_xcconfig(filename: xcconfig_filename)
-  gym(configuration: "Debug", export_method: export_method, xcconfig: xcconfig_filename)
+  gym(configuration: _configuration, export_method: export_method, xcconfig: xcconfig_filename)
+end
+
+def _configuration
+  return ENV['GYM_EXPORT_OPTIONS'].nil? ? "Release" : get_info_plist_value(path: ENV['GYM_EXPORT_OPTIONS'], key: 'configuration')
 end
 
 def _get_export_method
