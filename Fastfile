@@ -154,7 +154,7 @@ def _build_with_gym
 end
 
 def _get_build_config
-  return ENV['BUILD_CONFIGURATION'].nil? ? "Release" : ENV['BUILD_CONFIGURATION']
+  return ENV['FL_BUILD_CONFIGURATION'].nil? ? "Release" : ENV['FL_BUILD_CONFIGURATION']
 end
 
 def _get_export_method
