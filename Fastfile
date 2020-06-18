@@ -147,6 +147,7 @@ end
 def _build_with_gym
   install_provisioning_profiles
   _update_team_id_if_necessary
+  _update_code_signing_type_if_necessary
   export_method = _get_export_method
   xcconfig_filename = Dir.pwd + '/TAB.release.xcconfig'
   create_xcconfig(filename: xcconfig_filename)
@@ -178,6 +179,16 @@ def _update_team_id_if_necessary
     update_project_team(path: project_path, teamid: team_id)
   else
     UI.message('Unable to find project path or project team so skipping updating project team.')
+  end
+end
+
+def _update_code_signing_type_if_necessary
+  automatic_code_signing = ENV['FL_USE_AUTOMATIC_CODE_SIGNING']
+  if automatic_code_signing
+    UI.message("Updating code signing to '#{automatic_code_signing == 'true' ? 'automatic' : 'manual'}'")
+    update_code_signing_settings(
+      use_automatic_signing: automatic_code_signing == 'true',
+    )
   end
 end
 
