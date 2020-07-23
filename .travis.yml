@@ -4,7 +4,7 @@ rvm:
   - 2.5.0
 
 before_install:
-  - gem install bundler --no-document
+  - gem install bundler -v 1.16.0
   - bundle install
 
 script:
