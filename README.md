@@ -1,10 +1,10 @@
-![The App Business](./MasterFastfile.png)
+![MasterFastfile - Kin + Carta Create](./MasterFastfile.png)
 
 # MasterFastfile
 [![GitHub release](https://img.shields.io/github/release/theappbusiness/masterfastfile/all.svg)](https://github.com/theappbusiness/MasterFastfile/releases/latest)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/theappbusiness/MasterFastfile/blob/master/LICENSE)
 
-To setup your project to use the TAB MasterFastfile, navigate to your project root and run the following command:
+To setup your project to use the MasterFastfile, navigate to your project root and run the following command:
 
 ```shell
 curl https://raw.githubusercontent.com/theappbusiness/MasterFastfile/master/setup.sh | sh

@@ -120,7 +120,7 @@ module Fastlane
       end
 
       def self.authors
-        ['TAB, @TheAppBusiness']
+        ['Kin + Carta Create, @kinandcarta_cr']
       end
 
       def self.is_supported?(_) # rubocop:disable Naming/PredicateName, Naming/UncommunicativeMethodParamName
