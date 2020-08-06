@@ -1,8 +1,6 @@
 name: MasterFastfile CI
 
 on:
-  push:
-    branches: [ chore/github-actions ]
   pull_request:
     branches: [ '*' ]
 
