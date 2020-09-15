@@ -7,7 +7,7 @@
 To setup your project to use the MasterFastfile, navigate to your project root and run the following command:
 
 ```shell
-curl https://raw.githubusercontent.com/theappbusiness/MasterFastfile/master/setup.sh | sh
+curl https://raw.githubusercontent.com/theappbusiness/MasterFastfile/main/setup.sh | sh
 ```
 
 Then setup your environments using the `.env` files created for you. To complete the setup just add the missing variable values.
