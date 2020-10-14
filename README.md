@@ -84,6 +84,9 @@ The MasterFastfile uses whichever export options you have set for the `GYM_EXPOR
 
 ## Dependencies
 
+### Test Center plugin
+Add the test center plugin to your fastlane setup for the `ui_test` lane. Follow the guide [here](https://github.com/lyndsey-ferguson/fastlane-plugin-test_center)
+
 ### App Center plugin
 Add the app center plugin to your fastlane setup for the app center lanes. Follow the guide [here](https://github.com/microsoft/fastlane-plugin-appcenter)
 

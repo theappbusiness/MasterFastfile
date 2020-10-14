@@ -1,20 +1,25 @@
 # CHANGELOG
 
+## [6.0.0](https://github.com/theappbusiness/MasterFastfile/releases/tag/6.0.0)
+
+- UI tests are now executed using `fastlane-plugin-test_center` - https://github.com/lyndsey-ferguson/fastlane-plugin-test_center.
+- Added new (optional) environment variable `MULTI_SCAN_TRY_COUNT` to set the number of times a test is retried before it's considered a fail.
+- `TAB_UI_TEST_DEVICES` now supports the setting of multiple devices, as the name implies. If setting multiple, these should be ':' separated.
+- Added new (optional) environment variable `MULTI_SCAN_PARALLEL_WORKER_COUNT` to set the number of simulators for batched UI tests.
+- Added new (optional) environment variable `TAB_UNIT_TEST_DEVICE` to be able to set a unit test device independently. The `device` scan parameter was used previously which conflicted with the use of `devices` by `multi-scan`.
+
 ## [5.0.1](https://github.com/theappbusiness/MasterFastfile/releases/tag/5.0.1)
 
-Fixes an issue that was causing hockey uploads to fail.
+- Fixes an issue that was causing hockey uploads to fail.
 
 ## [5.0.0](https://github.com/theappbusiness/MasterFastfile/releases/tag/5.0.0)
 
-`TAB_PRIMARY_TARGET` environment variable is now mandatory for projects using Icon Overlay.
+- `TAB_PRIMARY_TARGET` environment variable is now mandatory for projects using Icon Overlay.
 
-As of v 2.86.0, fastlane requires a target for get_version_number, used for icon badging.
-
+- As of v 2.86.0, fastlane requires a target for get_version_number, used for icon badging.
 See discussion here: fastlane/fastlane#12177. See PR #64 for details.
-
-Use intended Bundle ID environment setting for each action
-
-Distinguishing between `FL_UPDATE_PLIST_APP_IDENTIFIER` and `FL_UPDATE_APP_IDENTIFIER`. See PR #63 for details.
+- Use intended Bundle ID environment setting for each action
+- Distinguishing between `FL_UPDATE_PLIST_APP_IDENTIFIER` and `FL_UPDATE_APP_IDENTIFIER`. See PR #63 for details.
 
 ## [4.0.0](https://github.com/theappbusiness/MasterFastfile/releases/tag/4.0.0)
 ### Changed
