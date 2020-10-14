@@ -37,9 +37,9 @@ lane :ui_test do
       else
         UI.important('Not all UI tests have passed and the maximum try count has been reached.')
       end
-
-      UI.message("testrun_info: #{testrun_info}")
     end
+    UI.message("Attempt #{testrun_info[:try_count]} out of #{max_test_try_count} run info: #{testrun_info}")
+
   end
 
   result = multi_scan(
