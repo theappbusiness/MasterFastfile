@@ -12,8 +12,13 @@ function make_default_env_file {
 #Set environment variables used in all builds here
 #More information on available environment variables can be found here https://github.com/theappbusiness/MasterFastfile/wiki/Quick-simple-setup-using-TAB-defaults
 
-GYM_EXPORT_OPTIONS="" # Path to export options plist
-GYM_CODE_SIGNING_IDENTITY=""" #Code Sign Identity
+FL_PROJECT_PROVISIONING_PROJECT_PATH="" #Path to project to update provisioning on
+FL_PROJECT_PROVISIONING_PROFILE_FILE="" #Path to provisioning profile to use for signing
+FL_PROJECT_PROVISIONING_PROFILE_TARGET_FILTER="" #matches name or type of a target
+FL_PROJECT_PROVISIONING_PROFILE_BUILD_CONFIGURATION="" #Optional specifies configurations to apply to, default is all
+FL_PROJECT_PROVISIONING_CODE_SIGN_IDENTITY="" #Code signing identity to use
+FL_PROJECT_TEAM_ID="" #Project team id
+GYM_EXPORT_METHOD="" #Export method i.e. app-store, ad-hoc, package, enterprise, development, developer-id
 
 FL_PROJECT_SIGNING_PROJECT_PATH="" # Path to xcode project to sign
 FL_UPDATE_PLIST_PATH="" #Path to Info.plist of application
@@ -33,7 +38,7 @@ TAB_SLACK_WEBHOOK_URL="" #Slack webhook for posting build information
 ICON_OVERLAY_ASSETS_BUNDLE="" #Path to .xcassets containing AppIcon. If this variable exists build info will be added to the app icon
 
 APPCENTER_API_TOKEN="" #Used to upload builds to app center
-APPCENTER_OWNER_NAME=""  # when you're on your organization's page in AppCenter, this is the part of the URL slug after `orgs`: `https://appcenter.ms/orgs/<owner_name>/applications`
+APPCENTER_OWNER_NAME=""  # when you're on your organization's page in AppCenter, this is the part of the URL slug after orgs: https://appcenter.ms/orgs/<owner_name>/applications
 
 ITUNES_CONNECT_USERNAME="" #iTunes Connect login (usually email address)
 ITUNES_CONNECT_TEAM_ID="" #The ID of your iTunes Connect team if you're in multiple teams https://github.com/fastlane/fastlane/issues/4301#issuecomment-253461017

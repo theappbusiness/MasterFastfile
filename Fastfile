@@ -43,7 +43,7 @@ end
 
 desc 'Runs all unit tests before deploying to TestFlight.'
 lane :deploy_to_test_flight do
-  if _get_export_method == 'app-store'
+  if ENV['GYM_EXPORT_METHOD'] == 'app-store'
     _setup
     scan
     _set_build_number
@@ -117,46 +117,20 @@ def _build_ipa
 end
 
 def _build_with_gym
-  install_provisioning_profiles
   _update_team_id_if_necessary
-  export_method = _get_export_method
-  xcconfig_filename = Dir.pwd + '/TAB.release.xcconfig'
-  create_xcconfig(filename: xcconfig_filename)
-  gym(export_method: export_method, xcconfig: xcconfig_filename)
-end
-
-def _get_export_method
-  if ENV['GYM_EXPORT_OPTIONS'].nil?
-    _fallback_to_enterprise_export_method
-  else
-    get_info_plist_value(path: ENV['GYM_EXPORT_OPTIONS'], key: 'method')
-  end
-end
-
-def _fallback_to_enterprise_export_method
-  UI.message('Falling back to enterprise `export_method` since `GYM_EXPORT_OPTIONS` is not defined')
-  'enterprise'
+  update_project_provisioning
+  gym
 end
 
 def _update_team_id_if_necessary
   project_path = ENV['FL_PROJECT_SIGNING_PROJECT_PATH']
-  team_id = _get_team_id
+  team_id = ENV['FL_PROJECT_TEAM_ID']
   if !project_path.to_s.strip.empty? && !team_id.to_s.strip.empty?
     UI.message("Updating project team with project path '#{project_path}' and team id '#{team_id}'.")
     update_project_team(path: project_path, teamid: team_id)
   else
     UI.message('Unable to find project path or project team so skipping updating project team.')
   end
-end
-
-def _get_team_id
-  team_id = ENV['FL_PROJECT_TEAM_ID']
-  unless team_id
-    UI.message('Attempting to extract team ID from `GYM_EXPORT_OPTIONS` since `FL_PROJECT_TEAM_ID` is not defined.')
-    team_id = get_info_plist_value(path: ENV['GYM_EXPORT_OPTIONS'],
-                                   key: 'teamID')
-  end
-  team_id
 end
 
 def _upload_to_app_center
