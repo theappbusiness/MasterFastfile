@@ -122,7 +122,11 @@ def _build_with_gym
   export_method = _get_export_method
   xcconfig_filename = Dir.pwd + '/TAB.release.xcconfig'
   create_xcconfig(filename: xcconfig_filename)
-  gym(export_method: export_method, xcconfig: xcconfig_filename)
+  if ENV['GYM_XCARGS'].nil?
+    gym(export_method: export_method, xcconfig: xcconfig_filename)
+  else
+    gym(export_method: export_method, xcconfig: xcconfig_filename, xcargs: ENV['GYM_XCARGS'])
+  end
 end
 
 def _get_export_method
